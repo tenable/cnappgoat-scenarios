@@ -1,0 +1,14 @@
+name: cwpp-aws-end-of-life-container-on-ecr
+runtime: go
+description: The scenario creates a Docker image with an outdated Ubuntu 21.10, raising
+  security concerns. It then pushes the image to a new AWS ECR. To fix this,
+  use a currently supported Ubuntu version.
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-end-of-life-container-on-ecr
+  friendlyName: End Of Life Container On ECR
+  description: The scenario creates an Elastic Container Registry (ECR) and deploys
+    a container with an outdated Ubuntu 21.10, posing potential security
+    risks and compatibility problems.
+  scenarioType: native

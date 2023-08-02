@@ -1,0 +1,16 @@
+name: cwpp-azure-end-of-life-container-on-acr
+runtime: go
+description: This scenario creates an Azure Container Registry  
+  and uploads a dated OS image. This poses a risk
+  as an outdated OS might have unpatched vulnerabilities. To mitigate,
+  maintain regular monitoring to stay notified of out-of-date containers.
+cnappgoat-params:
+  module: cwpp
+  platform: azure
+  id: cwpp-azure-end-of-life-container-on-acr
+  friendlyName: End Of Life Container On ACR
+  description: This scenario simulates an Azure Container Registry creation and uploading of a dated OS image. A key issue is that images with outdated OSes can pose significant
+    security threats. The remediation strategy involves updating the system, and following secure OS practices.
+  config:
+    azure-native:location: EastUS2
+  scenarioType: native

@@ -1,0 +1,10 @@
+name: iam-new-privileged-user
+runtime: go
+description: Creates a new IAM user with admin privileges. It is recommended to alert on the creation of new privileged users.
+cnappgoat-params:
+  module: ciem
+  platform: aws
+  id: ciem-aws-iam-new-priviliged-user
+  friendlyName: IAM User With Admin Privileges
+  description: Creates a new IAM User and a new IAM user with admin privileges. It is recommended to alert on the creation of new privileged users.
+  scenarioType: native

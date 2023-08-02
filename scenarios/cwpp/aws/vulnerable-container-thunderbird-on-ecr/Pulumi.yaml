@@ -1,0 +1,16 @@
+name: cwpp-aws-vulnerable-container-thunderbird-on-ecr
+runtime: go
+description: The present scenario deploys an ECR hosting a container with a vulnerable
+  Thunderbird package, causing potential security risks. Solve it by updating the
+  package to a more secure version.
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-vulnerable-container-thunderbird-on-ecr
+  friendlyName: Vulnerable Container Thunderbird On ECR
+  description: The scenario constitutes a script creating an Elastic Container Registry
+    (ECR) hosting a Docker container loaded with a vulnerable Thunderbird package.
+    The predicament is the risk of security violations through this vulnerable package.
+    To fix this, the Thunderbird package needs to be updated to a secure version or
+    substituted with a secure package before the Docker image's build and push operations.
+  scenarioType: native

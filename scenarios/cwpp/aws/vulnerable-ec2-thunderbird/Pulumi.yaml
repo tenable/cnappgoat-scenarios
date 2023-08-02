@@ -1,0 +1,16 @@
+name: cwpp-aws-vulnerable-ec2-thunderbird
+runtime: go
+description: The script sets up an AWS EC2 instance with an insecure Thunderbird package,
+  potentially exposing it to security risks. This issue can be resolved by regularly
+  updating all installed packages to their latest versions.
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-vulnerable-ec2-thunderbird
+  friendlyName: Vulnerable EC2 Thunderbird
+  description: The given scenario deploys an EC2 instance on AWS using Pulumi AWS
+    SDK, installing an insecure Thunderbird package directly from the Amazon Linux
+    repository. This poses a security threat as it makes the system vulnerable. To
+    fix it, ensure that the Thunderbird package is up-to-date before installation,
+    or opt for a safer alternative.
+  scenarioType: native

@@ -1,0 +1,17 @@
+name: s3-unencrypted-transport
+runtime: go
+description: The scenario deploys an S3 bucket via Pulumi and allows unencrypted HTTP
+  access, posing a security risk. The problem can be remediated by modifying the bucket
+  policy to enforce encrypted HTTPS connections.
+cnappgoat-params:
+  description: The scenario involves the creation of a new S3 bucket that tolerates
+    unencrypted http access. A problem arises with this scenario as it poses potential
+    security threats due to the lack of encryption for the file being uploaded to
+    the bucket. Possible data breaches can be prevented by ensuring the use of encrypted
+    HTTPS access instead of unencrypted HTTP, thereby enhancing the security and integrity
+    of the data transferred.
+  friendlyName: S3 With Unencrypted Access
+  id: cspm-aws-s3-unencrypted-transport
+  module: cspm
+  scenarioType: native
+  platform: aws

@@ -1,0 +1,1 @@
+FROM public.ecr.aws/i3j2g7c0/cnappgoat-images:end_of_life_ubuntu2110_image

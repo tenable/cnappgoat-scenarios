@@ -1,0 +1,18 @@
+name: lambda-env-secrets
+runtime: go
+description: The scenario creates a new AWS Lambda function, storing secrets
+  as environment variables. The problem arises due to storing sensitive data in plaintext. The remediation is to use AWS
+  Secrets Manager or similar tool to safely handle secrets.
+cnappgoat-params:
+  description: The scenario in question facilitates the creation of a new Lambda function
+    in AWS, with secrets embedded within the function's environment variables. This
+    practice raises a security risk as the secrets, such as passwords or API keys,
+    may be exposed or exploited. To mitigate the risk, it is recommended these secrets
+    be stored in a secure way such as AWS Secrets Manager or using environment variables.
+    This approach allows secrets to be decoupled from the code, enhancing security
+    and simplifying the management of secrets.
+  friendlyName: Lamdba With Secrets As Environment Variables
+  id: cspm-aws-lambda-env-secrets
+  module: cspm
+  scenarioType: native
+  platform: aws

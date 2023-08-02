@@ -1,0 +1,16 @@
+name: cwpp-azure-vulnerable-container-thunderbird-on-acr
+runtime: go
+description: This scenario creates an ACR and uploads a vulnerable thunderbird image. Issues arise from vulnerable images in the ACR. Remediation includes deleting the vulnerable
+  images and uploading secure ones.
+cnappgoat-params:
+  module: cwpp
+  platform: azure
+  id: cwpp-azure-vulnerable-container-thunderbird-on-acr
+  friendlyName: Vulnerable Container Thunderbird On ACR
+  description: this scenario creates a new Azure Container Registry (ACR) and copies a vulnerable Thunderbird
+    image onto it. The problem lies in the strategic placement of a compromised
+    container, which could lead to potential security issues. To resolve these issues,
+    it's important to maintain updated, non-vulnerable images in ACR.
+  config:
+    azure-native:location: EastUS2
+  scenarioType: native

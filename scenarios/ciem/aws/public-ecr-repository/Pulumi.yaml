@@ -1,0 +1,10 @@
+name: ciem-aws-public-ecr-repository
+runtime: go
+description: Creates a public ECR repository. It is recommended to alert on the creation of public ECR repositories, and only allow public repositories when necessary.
+cnappgoat-params:
+  module: ciem
+  platform: aws
+  id: ciem-aws-public-ecr-repository
+  friendlyName: Public ECR Repository
+  description: Creates a public ECR repository. It is recommended to alert on the creation of public ECR repositories, and only allow public repositories when necessary.
+  scenarioType: native

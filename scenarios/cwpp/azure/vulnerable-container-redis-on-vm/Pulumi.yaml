@@ -1,0 +1,13 @@
+name: cwpp-azure-vulnerable-container-redis-on-vm
+runtime: go
+description: This scenario creates a VM with a vulnerable Redis image. The main problem is it intentionally introduces vulnerability,
+  leaving the system exposed. To correct this, create a safe testing environment or use up-to-date, secure Redis images.
+cnappgoat-params:
+  module: cwpp
+  platform: azure
+  id: cwpp-azure-vulnerable-container-redis-on-vm
+  friendlyName: Vulnerable Container Redis On VM
+  description: This scenario deploys a VM containing a vulnerable Redis version. To remediate this, ensure Redis is updated to the latest version.
+  config:
+    azure-native:location: EastUS2
+  scenarioType: native

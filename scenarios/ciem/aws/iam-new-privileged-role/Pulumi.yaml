@@ -1,0 +1,10 @@
+name: iam-new-privileged-role
+runtime: go
+description: Creates a new IAM Role and a new IAM role with admin privileges. It is recommended to alert on the creation of new privileged roles.
+cnappgoat-params:
+  module: ciem
+  platform: aws
+  id: ciem-aws-iam-new-priviliged-role
+  friendlyName: IAM Role With Admin Privileges
+  description: Creates a new IAM Role and a new IAM role with admin privileges. It is recommended to alert on the creation of new privileged roles.
+  scenarioType: native

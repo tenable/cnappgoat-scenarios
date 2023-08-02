@@ -1,0 +1,14 @@
+name: ec2-open-public
+runtime: go
+description: This script establishes an AWS EC2 instance running a public web server
+  on port 80, It exposes the server to any incoming traffic. To fix this issue, restrict
+  CIDR range in the security group to known IPs, enhancing security.
+cnappgoat-params:
+  description: The provided scenario establishes a new Amazon EC2 instance to host a public webserver on port 80. 
+    It enables public access to port 80, which is a security risk. To fix this issue, revise the security group settings, limiting access
+    to known and trusted IP addresses.
+  friendlyName: EC2 Open Public
+  id: cspm-aws-ec2-open-public
+  module: cspm
+  scenarioType: native
+  platform: aws

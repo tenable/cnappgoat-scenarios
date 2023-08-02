@@ -1,0 +1,13 @@
+name: cwpp-aws-malicious-ec2-xmrig
+runtime: go
+description: The scenario deploys an Amazon EC2 instance running XMRig miner, which
+  enable cryptocurrency mining - a security vulnerability and resource
+  misuse.
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-malicious-ec2-xmrig
+  friendlyName: Malicious EC2 Xmrig
+  description: This scenario involves a deployment of a cryptocurrency mining EC2
+    instance on AWS using XMRig. To mitigate this issue, it's recommended use a malware decetion solution.
+  scenarioType: native

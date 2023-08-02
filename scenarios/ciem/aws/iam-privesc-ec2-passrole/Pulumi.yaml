@@ -1,0 +1,17 @@
+name: ciem-aws-iam-privesc-ec2-passrole
+runtime: go
+description: The scenario creates an IAM role with EC2 passrole permissions which
+  could lead to unauthorized access. To remediate, restrict the permissions to
+  the necessary resources only.
+cnappgoat-params:
+  description: The scenario deployed by the code creates an IAM role with EC2 and
+    passrole permissions. The issue is that it lacks restrictions, specifically in
+    the role policy where it allows 'ec2:RunInstances' and 'iam:PassRole' on all resources.
+    This could potentially grant malicious users too much access. A remediation would
+    be to enforce a stringent policy, narrowing down the resources the role has access
+    to, thereby reducing the permissions to necessary ones only.
+  friendlyName: IAM Role With EC2 Passrole Permissions
+  id: ciem-aws-iam-privesc-ec2-passrole
+  module: ciem
+  scenarioType: native
+  platform: aws

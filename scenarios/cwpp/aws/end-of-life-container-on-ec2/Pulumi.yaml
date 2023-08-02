@@ -1,0 +1,13 @@
+name: cwpp-aws-end-of-life-container-on-ec2
+runtime: go
+description: This scenario deploys an AWS EC2 instance with an outdated Ubuntu 21.10 container, resulting in a security risk due to a lack of updates and patches. Remediation involves updating the container's base image to a current, supported version.
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-end-of-life-container-on-ec2
+  friendlyName: End of Life Container On EC2
+  description: The script deploys an EC2 instance running an EOL Ubuntu 21.10 within
+    a Docker container. This poses a security issue as the EOL operating system version
+    doesn't receive updates or patches, leaving it vulnerable. Fix this by updating
+    the Docker container to use the most recent and supported Ubuntu version.
+  scenarioType: native

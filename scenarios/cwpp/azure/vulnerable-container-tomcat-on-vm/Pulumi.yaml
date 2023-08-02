@@ -1,0 +1,14 @@
+name: cwpp-azure-vulnerable-container-tomcat-on-vm
+runtime: go
+description: This scenario creates a VM with a vulnerable Tomcat image. The main problem is it intentionally introduces vulnerability,
+  leaving the system exposed. To correct this, create a safe testing environment or use up-to-date, secure Tomcat images.
+cnappgoat-params:
+  module: cwpp
+  platform: azure
+  id: cwpp-azure-vulnerable-container-tomcat-on-vm
+  friendlyName: Vulnerable Container Tomcat On VM
+  description: This scenario deploys a VM containing a vulnerable Tomcat version. To remediate this, ensure Tomcat is updated to the latest version.
+
+  config:
+    azure-native:location: EastUS2
+  scenarioType: native

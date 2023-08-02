@@ -1,0 +1,17 @@
+name: s3-public-bucket-secrets
+runtime: go
+description: The scenario deploys a script that creates an AWS S3 bucket with public
+  read access which exposes secrets. To remediate this, modify the bucket policy
+  to restrict public access and refrain from storing confidential files.
+cnappgoat-params:
+  description: This scenario involves deploying an S3 public bucket with confidential
+    data. The code creates a bucket and sets it to public, making the contained secrets easily accessible, which is a significant security
+    risk. To remediate the issue, consider activating the BlockPublicAcls, BlockPublicPolicy,
+    IgnorePublicAcls, and RestrictPublicBuckets parameters, ensuring that bucket policies
+    restrict unnecessary access, and the stored secrets are protected from unwarranted
+    public exposure.
+  friendlyName: Public S3 With Secrets
+  id: cspm-aws-s3-public-bucket-secrets
+  module: cspm
+  scenarioType: native
+  platform: aws

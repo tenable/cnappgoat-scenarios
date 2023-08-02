@@ -1,0 +1,19 @@
+name: codebuild-build-secrets
+runtime: go
+description: The scenario deploys a codebuild project which includes
+  sensitive data in the buildspec. To resolve this, secrets should be handled via 
+  AWS Secrets Manager or as environment variables, rather than in the buildspec.
+cnappgoat-params:
+  description: The scenario given establishes a codebuild machine with secrets stored
+    unencrypted in the buildspec file, which is a security vulnerability. The code
+    deploys an AWS CodeBuild project and an IAM role with access to AWS services like
+    S3 and Logs. While it seems functional, storing secrets in the clear within a
+    buildspec is a bad practice as it exposes sensitive data. To remedy this, AWS
+    Secrets Manager or AWS Systems Manager Parameter Store should be used to store
+    sensitive data securely for access during builds. The secrets can then be accessed
+    securely using the appropriate AWS SDK commands.
+  friendlyName: Codebuild With Secrets
+  id: cspm-aws-codebuild-build-secrets
+  module: cspm
+  scenarioType: native
+  platform: aws

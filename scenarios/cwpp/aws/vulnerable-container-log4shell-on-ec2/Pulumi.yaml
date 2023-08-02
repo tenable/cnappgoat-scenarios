@@ -1,0 +1,17 @@
+name: cwpp-aws-vulnerable-container-log4shell-on-ec2
+runtime: go
+description: The scenario involves deploying an EC2 instance with a Log4shell-vulnerable
+  container. The flaw rests with the use of a compromised Log4shell image, raising
+  great security concerns. To correct this, replace the vulnerability-filled Log4shell
+  image.
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-vulnerable-container-log4shell-on-ec2
+  friendlyName: Vulnerable Container Log4shell On EC2
+  description: The given file deploys an Amazon EC2 instance equipped with a Docker
+    that has a Log4Shell vulnerability, a severe JVM exploit risk. Unauthorized system
+    access and data breaches may occur due to this vulnerability. To solve the problem,
+    patch the Docker to eliminate the vulnerability, or refrain from using containers
+    with known vulnerabilities.
+  scenarioType: native

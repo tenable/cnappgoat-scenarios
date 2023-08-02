@@ -1,0 +1,11 @@
+name: ciem-aws-iam-overprivileged-user
+runtime: go
+description: Creates an IAM User with overprivileged permissions. IAM Roles should be assigned the least amount of privileges necessary to perform their intended function.
+cnappgoat-params:
+  module: ciem
+  platform: aws
+  id: ciem-aws-iam-overprivileged-user
+  friendlyName: IAM User With Overprivileged Permissions
+  description: Creates an IAM User with overprivileged permissions. IAM Roles should be assigned the least amount of privileges necessary to perform their intended function. The scenario does this by creating a lambda and using the user access keys (shared via secret) with it.
+  scenarioType: native
+

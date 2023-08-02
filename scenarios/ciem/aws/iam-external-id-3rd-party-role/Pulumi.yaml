@@ -1,0 +1,18 @@
+name: ciem-aws-iam-external-id-3rd-party-role
+runtime: go
+description: The scenario creates an IAM role without an external ID parameter. 
+  This exposes your account to confused deputy attacks.
+  To fix, include the condition "sts:ExternalId" in your
+  IAM role trust policy during the creation process.
+cnappgoat-params:
+  description: The scenario involves the creation of an IAM role for a 3rd party without
+    an external ID parameter. This flaw escalates the risk of impersonation attacks,
+    especially 'confused deputy' scenarios, where rogue actors might access your account
+    using the same vendor's services. To mitigate this issue, it's essential to include
+    an 'External ID' in the trust policy of the IAM role, thereby adding an extra
+    layer of security against potential impersonators.
+  friendlyName: IAM Role Without External ID
+  id: ciem-aws-iam-external-id-3rd-party-role
+  module: ciem
+  scenarioType: native
+  platform: aws

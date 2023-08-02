@@ -1,0 +1,19 @@
+name: ciem-aws-iam-public-role
+runtime: go
+description: The scenario deploys a public IAM role,
+  which poses a security risk by granting access to all principals. Remedy this by
+  restricting the Principal field in AssumeRolePolicy to specific entities instead
+  of all.
+cnappgoat-params:
+  description: The given scenario deploys a public Identity and Access Management
+    (IAM) role using Pulumi's AWS SDK. The issue here is the potential security vulnerability,
+    as the role configuration allows any AWS principal to assume the role, increasing
+    the risks of unauthorized access and potentially dangerous actions. To remediate
+    this, it's advised to implement strict access measures by defining specific principals
+    that can assume this role and implementing necessary IAM policies, thus shoring
+    up the security weakness in the current setup.
+  friendlyName: IAM Public Role
+  id: ciem-aws-iam-public-role
+  module: ciem
+  scenarioType: native
+  platform: aws

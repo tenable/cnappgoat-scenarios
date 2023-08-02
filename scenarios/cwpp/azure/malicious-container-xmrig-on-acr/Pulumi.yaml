@@ -1,0 +1,18 @@
+name: cwpp-azure-malicious-container-xmrig-on-acr
+runtime: go
+description: This scenario creates an Azure Container Registry (ACR) laden with a
+  malicious xmrig miner image. Its flaw lies in facilitating harmful image distribution.
+  Mitigation involves detect and alert about such malicious images.
+cnappgoat-params:
+  module: cwpp
+  platform: azure
+  id: cwpp-azure-malicious-container-xmrig-on-acr
+  friendlyName: Malicious Container Xmrig On ACR
+  description: This scenario tcreates an Azure Container Registry
+    (ACR) hosting a malicious xmrig miner image. The issue lies in its unsecured
+    copy, leaving your ACR vulnerable to malware. It recommends strengthening your
+    CNAPP defenses against such security threats. Remediation involves the deployment
+    of robust intrusion detection systems to proactively identify any suspicious activity from the ACR.
+  config:
+    azure-native:location: EastUS2
+  scenarioType: native

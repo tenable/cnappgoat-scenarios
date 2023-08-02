@@ -1,0 +1,18 @@
+name: codebuild-administrator-servicerole
+runtime: go
+description: This scenario deploys a CodeBuild machine with a highly privileged administrator
+  role, which risks widespread access and potential misuse. To remedy this, assign
+  the least privileged role necessary for CodeBuild function and limit its access.
+cnappgoat-params:
+  description: This scenario sets up a CodeBuild machine with a highly privileged
+    administrative service role, which implies a potential security risk due to overly
+    broad permissions. The problem arises in the attachment of the 'AdministratorAccess'
+    policy to the 'codeBuildRole', granting it widespread privileges. To remediate
+    this, ensure that the IAM role for CodeBuild is assigned only the required permissions.
+    Replace the 'AdministratorAccess' role with a more restricted policy that provides
+    the necessary access for specific operations.
+  friendlyName: Codebuild With Administrator Role
+  id: ciem-aws-codebuild-administrator-servicerole
+  module: ciem
+  scenarioType: native
+  platform: aws

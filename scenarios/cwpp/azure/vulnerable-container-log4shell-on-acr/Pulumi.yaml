@@ -1,0 +1,13 @@
+name: cwpp-azure-vulnerable-container-log4shell-on-acr
+runtime: go
+description: This scenario allows you to create a new ACR and copy an image with vulnerable log4shell. 
+cnappgoat-params:
+  module: cwpp
+  platform: azure
+  id: cwpp-azure-vulnerable-container-log4shell-on-acr
+  friendlyName: Vulnerable Container log4shell On ACR
+  description: This scenario creates a new ACR  and copies an image with vulnerable log4shell. To address this issue, you should always ensure your container images are updated and use
+    vulnerability scanning tools to detect and fix possible security issues swiftly.
+  config:
+    azure-native:location: EastUS2
+  scenarioType: native

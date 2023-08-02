@@ -1,0 +1,18 @@
+name: cwpp-aws-malicious-container-xmrig-on-ecr
+runtime: go
+description: The script implements an ECR container with an XMRig miner, leading
+  to sluggish performance due to heavy resource utilization for crypto mining. to fix it,
+  Replace XMRig with a less demanding software or adjust resource allocations
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-malicious-container-xmrig-on-ecr
+  friendlyName: Malicious Container Xmrig On ECR
+  description: The scenario creates a container with an XMRig miner on the Elastic
+    Container Registry (ECR), potentially misusing CPU resources for unauthorized
+    cryptocurrency mining. This is done by creating a malicious image and uploading
+    it to the ECR repository. Issues may occur when this image is deployed without
+    the owner's consent. To fix this, monitor traffic for unusual patterns, strengthen
+    access policies, and regularly scan for vulnerabilities. Avoid using public images
+    to mitigate risk.
+  scenarioType: native

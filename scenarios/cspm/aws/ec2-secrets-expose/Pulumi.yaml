@@ -1,0 +1,17 @@
+name: ec2-secrets-expose
+runtime: go
+description: The scenario creates a new EC2 instance secrets in user data.
+  Remediation involves securely managing these secrets, preferably through AWS Secrets
+  Manager.
+cnappgoat-params:
+  description: The scenario creates a new EC2 instance suing Pulumi, with sensitive
+    information ("mysecretpassword1231") in the user data. The issue is that placing
+    secrets in the user data presents a major security risk, as this data is not encrypted
+    and can be easily accessed. To solve the problem, secrets should be stored securely
+    using AWS Secrets Manager or AWS Parameter Store, allowing the EC2 instance to
+    retrieve them securely when needed.
+  friendlyName: EC2 With Secrets Embedded
+  id: cspm-aws-ec2-secrets-expose
+  module: cspm
+  scenarioType: native
+  platform: aws

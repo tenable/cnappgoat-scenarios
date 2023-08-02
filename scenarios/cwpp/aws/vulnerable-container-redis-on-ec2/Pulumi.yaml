@@ -1,0 +1,14 @@
+name: cwpp-aws-vulnerable-container-redis-on-ec2
+runtime: go
+description: This scenario deploys an EC2 instance with a vulnerable Redis image, raising security risks. To resolve this, update the Redis to a secure version.
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-vulnerable-container-redis-on-ec2
+  friendlyName: Vulnerable Container Redis On EC2
+  description: The script deploys an AWS EC2 instance with a vulnerable
+    Redis image. The issue lies in the potential security vulnerabilities
+    that could be exploited, thereby posing risks to the EC2's resources. To remediate
+    this, use secure, updated, and reputable Redis images and regularly conduct vulnerability
+    scanning and patching.
+  scenarioType: native

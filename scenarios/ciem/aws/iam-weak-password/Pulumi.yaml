@@ -1,0 +1,15 @@
+name: ciem-aws-iam-weak-password
+runtime: go
+description: The scenario creates an IAM user with a weak password, posing a security
+  risk due to potential brute-force attacks. To remediate this, the password policy
+  should be updated to require a minimum length of 14 characters.
+cnappgoat-params:
+  description: The scenario creates an Identity Access Management (IAM) User with
+    a weak password, increasing vulnerability to brute-force attacks. The problem
+    lies in IAM password policy, which should be a minimum of 14 characters for improved
+    security.
+  friendlyName: IAM Weak Password
+  id: ciem-aws-iam-weak-password
+  module: ciem
+  scenarioType: native
+  platform: aws

@@ -1,0 +1,15 @@
+name: cwpp-aws-vulnerable-container-redis-on-ecr
+runtime: go
+description: This scenario creates an ECR, hosting a container with a vulnerable
+  Redis version, raising security risks. Mitigation requires regular Redis image updates.
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-vulnerable-container-redis-on-ecr
+  friendlyName: Vulnerable Container Redis On ECR
+  description: The scenario involves creating an Amazon Elastic Container
+    Registry (ECR) containing a Redis container with a vulnerability, making it susceptible
+    to threats. The issue lies with the outdated, compromised Redis version. To resolve
+    this, one should update Redis to a current, secure version, which would bolster
+    the ECR's security and overall deployment integrity.
+  scenarioType: native

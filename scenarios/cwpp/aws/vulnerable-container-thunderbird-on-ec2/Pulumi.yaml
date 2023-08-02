@@ -1,0 +1,15 @@
+name: cwpp-aws-vulnerable-container-thunderbird-on-ec2
+runtime: go
+description: This scenario deploys an AWS EC2 instance with a vulnerable Thunderbird
+  package, leading to potential security risks. To mitigate this, update the Thunderbird
+  package or use safer alternatives.
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-vulnerable-container-thunderbird-on-ec2
+  friendlyName: Vulnerable Container Thunderbird On EC2
+  description: The script generates an AWS EC2 instance using a vulnerable Thunderbird
+    package, risking system exploitation. The vulnerability arises from the script's
+    image, containing a potentially exploitable Thunderbird package. To fix this,
+    incorporate an update of the Thunderbird package to the latest version.
+  scenarioType: native

@@ -1,0 +1,15 @@
+name: cwpp-aws-vulnerable-container-jenkins-on-ec2
+runtime: go
+description: The scenario deploys a vulnerable Jenkins image on EC2 instance, creating a security risk. Fix this by ensuring your Jenkins installation
+  is fully up-to-date or switch to an image with recent security patches.
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-vulnerable-container-jenkins-on-ec2
+  friendlyName: Vulnerable Container Jenkins On EC2
+  description: In this scenario, a script deploys an insecure Jenkins instance in
+    AWS, using an EC2 instance and vulnerable Docker image. The issue here is that
+    known vulnerabilities in the image can expose the Jenkins instance to attacks.
+    A remedy for this problem is to substitute the problematic Jenkins image with
+    a secure and updated version.
+  scenarioType: native

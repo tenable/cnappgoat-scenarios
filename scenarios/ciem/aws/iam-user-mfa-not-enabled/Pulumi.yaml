@@ -1,0 +1,17 @@
+name: ciem-aws-iam-user-mfa-not-enabled
+runtime: go
+description: This scenario creates an AWS IAM user with console access, but without
+  Multi-Factor Authentication (MFA) enabled, posing a security risk. To remediate,
+  modify the script to include enabling MFA while creating the user profile.
+cnappgoat-params:
+  description: This scenario creates an AWS Identity and Access Management (IAM) user
+    without Multi-Factor Authentication (MFA) and a login profile, using Pulumi's
+    AWS and SDK libraries. The issue with this is it does not follow security best
+    practices as IAM users with console access should have MFA enabled for security
+    reasons. To remedy this situation, the program should be modified to include steps
+    for enabling MFA during or after the user creation process.
+  friendlyName: User MFA Not Enabled
+  id: ciem-aws-iam-user-mfa-not-enabled
+  module: ciem
+  scenarioType: native
+  platform: aws

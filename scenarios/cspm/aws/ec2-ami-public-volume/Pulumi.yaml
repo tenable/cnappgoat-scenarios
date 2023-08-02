@@ -1,0 +1,18 @@
+name: ec2-ami-public-volume
+runtime: go
+description: This scenario generates an EBS volume and a related snapshot, which is registered
+  as a public AMI. The issue lies in AMI's public status, resulting in potential unauthorized
+  access. To rectify, modify the script to create a private AMI.
+cnappgoat-params:
+  description: The program creates a new Elastic Block Store (EBS) volume, takes its
+    snapshot and registers that snapshot as a public Amazon Machine Image (AMI).
+    However, the problem in doing so is that public AMIs might pose
+    serious security risks as they can be accessed by anyone. To remediate the problem,
+    restrict AMI's access to specific people or groups, or avoid making it public.
+    Modify the 'ec2.AmiLaunchPermissionArgs' to limit the AMI availability to specific
+    groups or individuals.
+  friendlyName: EC2 Public AMI
+  id: cspm-aws-ec2-ami-public-volume
+  module: cspm
+  scenarioType: native
+  platform: aws

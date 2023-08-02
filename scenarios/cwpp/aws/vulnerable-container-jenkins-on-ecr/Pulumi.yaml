@@ -1,0 +1,16 @@
+name: cwpp-aws-vulnerable-container-jenkins-on-ecr
+runtime: go
+description: The scenario deploys an Elastic Container Registry (ECR) with a vulnerable Jenkins image. Fix it by switching to a secure, updated
+  Jenkins container.
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-vulnerable-container-jenkins-on-ecr
+  friendlyName: Vulnerable Container Jenkins On ECR
+  description: The scenario's operation involves deploying an Elastic Container Registry
+    (ECR) with a susceptible Jenkins container. Its problem originates
+    from the potential security risks posed by the vulnerable Jenkins container, exposing
+    the system to cyber threats. The remediation requires using an updated, fully
+    patched Jenkins container, thereby minimizing the threat to the containerized
+    apps it oversees.
+  scenarioType: native

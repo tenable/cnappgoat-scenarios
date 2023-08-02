@@ -1,0 +1,16 @@
+name: cwpp-aws-vulnerable-container-tomcat-on-ecr
+runtime: go
+description: The script deploys a vulnerable Tomcat container in an ECR, posing security
+  risks. Problems arise due to outdated security patches on the Tomcat container.
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-vulnerable-container-tomcat-on-ecr
+  friendlyName: Vulnerable Container Tomcat On ECR
+  description: The scenario builds an Elastic Container Repository (ECR) containing
+    a vulnerable Tomcat version, a situation that poses security risks. The problem
+    lies in the vulnerabilities within the Tomcat. Remedying this issue requires upgrading
+    to a safer, newer Tomcat version and initiating a thorough security audit to find
+    and eliminate other system weaknesses. Implementing a secure development process
+    can help prevent potential vulnerabilities in the future.
+  scenarioType: native

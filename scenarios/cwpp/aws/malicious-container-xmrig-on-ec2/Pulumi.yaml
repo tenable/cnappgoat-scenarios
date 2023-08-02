@@ -1,0 +1,14 @@
+name: cwpp-aws-malicious-container-xmrig-on-ec2
+runtime: go
+description: The scenario deploys an EC2 instance housing an XMRig container
+  this is a cryptominer. To resolve this, terminate the machine. To detect cryptominer installs, 
+  deploy a malware detection engine on your environment.
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-malicious-container-xmrig-on-ec2
+  friendlyName: Malicious Container Xmrig On EC2
+  description: The scenario features an Amazon EC2 instance creation, with an embedded
+    malicious XMRig docker container. It poses a problem by deploying the XMRig mining software that utilizes computing
+    resources unapproved. For remediation, deploy a malware detection engine on your environment.
+  scenarioType: native

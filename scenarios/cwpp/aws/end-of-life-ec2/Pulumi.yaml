@@ -1,0 +1,14 @@
+name: cwpp-aws-end-of-life-ec2
+runtime: go
+description: The scenario deploys an EC2 instance using Ubuntu 21.10, now an end-of-life
+  OS posing security risks due to ceased support.
+cnappgoat-params:
+  module: cwpp
+  platform: aws
+  id: cwpp-aws-end-of-life-ec2
+  friendlyName: End Of Life EC2
+  description: In the given AWS scenario, the deployment script in Go creates an EC2
+    instance based on obsolete Ubuntu 21.10, leading to a security concern due to
+    its end-of-life status. The problem is the use of an unsupported Ubuntu
+    version, thus becoming susceptible to security breaches due to lack of updates.
+  scenarioType: native
