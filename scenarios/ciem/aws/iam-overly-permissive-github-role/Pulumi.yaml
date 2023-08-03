@@ -1,0 +1,18 @@
+name: ciem-aws-iam-overly-permissive-github-role
+runtime: go
+description: This scenario creates an IAM OpenID Connect provider for Github.com 
+  and a role that trusts it without sufficient trust policy conditions. This exposes
+  your account to confused deputy attacks. To fix, include the condition 
+  "token.actions.githubusercontent.com:sub" in your IAM role trust policy during 
+  the creation process.
+cnappgoat-params:
+  description: This scenario creates an IAM OpenID Connect provider for Github.com
+    and a role that trusts it without sufficient trust policy conditions. This exposes
+    your account to confused deputy attacks. To fix, include the condition
+    "token.actions.githubusercontent.com:sub" in your IAM role trust policy during
+    the creation process.
+  friendlyName: Federated Github.com IAM Role Without Subject Condition
+  id: ciem-aws-iam-overly-permissive-github-role
+  module: ciem
+  platform: aws
+  scenarioType: native
