@@ -39,6 +39,8 @@ cnappgoat-params:
   module: ciem
   scenarioType: native
   platform: aws
+  config:
+    key: value
 ```
 
 Let's break down this example to learn about the different fields:
@@ -60,7 +62,8 @@ convention for this name is `Capitalized Scenario Name`
   * `module`: The module of the scenario. This module is used by CNAPPgoat to identify the module of the scenario.
 (e.g. `ciem`, `cspm`, `cwpp`, etc.)
   * `scenarioType`: The type of the scenario. All scenarios in this repository are `native` scenarios.
-
+    * `config`: The configuration of the scenario. CNAPPgoat takes key value pairs under this yaml field and sets them
+as environment variables for the Pulumi program, as if you ran `pulumi config set <key> <value>` for each key value pair.
 ### The Pulumi Program
 In the same directory as the `Pulumi.yaml` file, you should put the Pulumi program. The Pulumi program is a program
 written in the programming language specified in the `Pulumi.yaml` file. This program is used by Pulumi to deploy
@@ -81,8 +84,10 @@ follow when writing scenarios for CNAPPgoat:
 tags can be case-sensitive.
 * **Output values**: Whenever possible, output values that are relevant to the scenario. For now, these are not used
 by CNAPPgoat, but it is best practice to reflect them.
-
-Other than that, try to stick to the best practices and conventions of the programming language you are using.
+  * **Region independence**: Whenever possible, write scenarios in a way that they can be deployed in any region. 
+  You can look at [scenarios/cwpp/aws/end-of-life-ec2](scenarios/cwpp/aws/end-of-life-ec2) for an example of how to do
+  this.
+  Other than that, try to stick to the best practices and conventions of the programming language you are using.
 
 ### Testing your scenario
 To test your scenario, just put it into your local directory under the proper directory structure,
