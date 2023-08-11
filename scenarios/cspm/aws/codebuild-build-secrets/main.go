@@ -16,7 +16,6 @@ func main() {
 			return err
 		}
 		accountID := callerIdentity.AccountId
-		// Create IAM Role for CodeBuild
 		codebuildRole, err := iam.NewRole(ctx, "codebuildRole", &iam.RoleArgs{
 			AssumeRolePolicy: pulumi.String(`{
 				"Version": "2012-10-17",
@@ -30,6 +29,9 @@ func main() {
 					}
 				]
 			}`),
+			Tags: pulumi.StringMap{
+				"Cnappgoat": pulumi.String("true"),
+			},
 		})
 		if err != nil {
 			return err
@@ -81,13 +83,13 @@ func main() {
 		}`, accountID, accountID, accountID)
 
 		// Create a Role Policy and attach it to the Role
-		_, err = iam.NewRolePolicy(ctx, "codebuildRolePolicy", &iam.RolePolicyArgs{
+		_, err = iam.NewRolePolicy(ctx, "CnappgoatCodebuildRolePolicy", &iam.RolePolicyArgs{
 			Role:   codebuildRole.Name,
 			Policy: pulumi.String(policy),
 		})
 
 		// Create AWS CodeBuild project
-		_, err = codebuild.NewProject(ctx, "cnappgoat-codebuild", &codebuild.ProjectArgs{
+		codebuildProject, err := codebuild.NewProject(ctx, "cnappgoat-codebuild", &codebuild.ProjectArgs{
 			Name: pulumi.String("cnappgoat-codebuild"),
 			Artifacts: codebuild.ProjectArtifactsArgs{
 				Type: pulumi.String("NO_ARTIFACTS"),
@@ -108,11 +110,15 @@ phases:
 			},
 			ServiceRole:  codebuildRole.Arn,
 			BuildTimeout: pulumi.Int(5),
+			Tags: pulumi.StringMap{
+				"Cnappgoat": pulumi.String("true"),
+			},
 		})
 		if err != nil {
 			return err
 		}
-
+		ctx.Export("codebuildRole", codebuildRole.Arn)
+		ctx.Export("codebuildProject", codebuildProject.Arn)
 		return nil
 	})
 }
