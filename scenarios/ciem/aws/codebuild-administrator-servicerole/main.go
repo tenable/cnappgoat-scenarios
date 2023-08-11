@@ -10,7 +10,7 @@ func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 
 		// Create IAM Role for CodeBuild
-		role, err := iam.NewRole(ctx, "codeBuildRole", &iam.RoleArgs{
+		role, err := iam.NewRole(ctx, "CnappgoatCodeBuildRole", &iam.RoleArgs{
 			AssumeRolePolicy: pulumi.String(`{
 				"Version": "2012-10-17",
 				"Statement": [
@@ -24,6 +24,9 @@ func main() {
 				  }
 				]
 			  }`),
+			Tags: pulumi.StringMap{
+				"Cnappgoat": pulumi.String("true"),
+			},
 		})
 		if err != nil {
 			return err
@@ -38,7 +41,7 @@ func main() {
 		}
 
 		// Create AWS CodeBuild project
-		_, err = codebuild.NewProject(ctx, "CNAPPGoatCodeBuildproject", &codebuild.ProjectArgs{
+		codebuildProject, err := codebuild.NewProject(ctx, "CNAPPgoatCodeBuildproject", &codebuild.ProjectArgs{
 			Artifacts: codebuild.ProjectArtifactsArgs{
 				Type: pulumi.String("NO_ARTIFACTS"),
 			},
@@ -58,12 +61,15 @@ phases:
 			},
 			ServiceRole:  role.Arn,
 			BuildTimeout: pulumi.Int(5),
+			Tags: pulumi.StringMap{
+				"Cnappgoat": pulumi.String("true"),
+			},
 		})
 		if err != nil {
 			return err
 		}
-		ctx.Export("roleName", role.Name)
 		ctx.Export("roleArn", role.Arn)
+		ctx.Export("codebuildProject", codebuildProject.Arn)
 		return nil
 	})
 }
