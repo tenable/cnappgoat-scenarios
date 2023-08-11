@@ -23,7 +23,7 @@ func main() {
 		if err != nil {
 			return err
 		}
-		_, err = s3.NewBucketPublicAccessBlock(ctx, "cnappgoatBucketPublicAccessBlock", &s3.BucketPublicAccessBlockArgs{
+		publicAccessBlock, err := s3.NewBucketPublicAccessBlock(ctx, "cnappgoatBucketPublicAccessBlock", &s3.BucketPublicAccessBlockArgs{
 			Bucket:                bucket.ID(),
 			BlockPublicAcls:       pulumi.Bool(false),
 			BlockPublicPolicy:     pulumi.Bool(false),
@@ -49,7 +49,8 @@ func main() {
                     ]
                   }`, id)), nil
 			}).(pulumi.StringOutput),
-		})
+			// depends on the public bucket access block
+		}, pulumi.DependsOn([]pulumi.Resource{publicAccessBlock}))
 		if err != nil {
 			return err
 		}
