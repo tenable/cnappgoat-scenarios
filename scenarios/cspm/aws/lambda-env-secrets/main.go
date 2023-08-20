@@ -13,7 +13,7 @@ func main() {
 		secret2 := "123156asd!@%!#^3a"
 
 		// Create IAM role for the lambda function
-		lambdaRole, err := iam.NewRole(ctx, "lambdaRole", &iam.RoleArgs{
+		lambdaRole, err := iam.NewRole(ctx, "CNAPPGoat-lambda-role", &iam.RoleArgs{
 			AssumeRolePolicy: pulumi.String(`{
 				"Version": "2012-10-17",
 				"Statement": [{
@@ -31,7 +31,7 @@ func main() {
 		}
 
 		// Create Lambda function
-		_, err = lambda.NewFunction(ctx, "cnappFunction", &lambda.FunctionArgs{
+		lambdaSecrets, err := lambda.NewFunction(ctx, "CNAPPGoat-lambda-env-secrets", &lambda.FunctionArgs{
 			Handler: pulumi.String("index.handler"),
 			Role:    lambdaRole.Arn,
 			Runtime: pulumi.String("nodejs18.x"),
@@ -42,11 +42,16 @@ func main() {
 				},
 			},
 			Code: pulumi.NewFileArchive("./app.zip"),
+			Tags: pulumi.StringMap{
+				"Name":      pulumi.String("CNAPPGoat-lambda-env-secrets"),
+				"Cnappgoat": pulumi.String("true"),
+			},
 		})
 		if err != nil {
 			return err
 		}
-
+		ctx.Export("CNAPPGoat-lambda-role", lambdaRole.Arn)
+		ctx.Export("CNAPPGoat-lambda-env-secrets", lambdaSecrets.Arn)
 		return nil
 	})
 }
