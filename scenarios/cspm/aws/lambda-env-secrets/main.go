@@ -37,8 +37,8 @@ func main() {
 			Runtime: pulumi.String("nodejs18.x"),
 			Environment: &lambda.FunctionEnvironmentArgs{
 				Variables: pulumi.StringMap{
-					"SECRET1": pulumi.String(secret1),
-					"SECRET2": pulumi.String(secret2),
+					"username": pulumi.String(secret1),
+					"password": pulumi.String(secret2),
 				},
 			},
 			Code: pulumi.NewFileArchive("./app.zip"),
