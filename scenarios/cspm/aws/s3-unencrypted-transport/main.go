@@ -9,9 +9,9 @@ func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 
 		// Create a new S3 bucket
-		bucket, err := s3.NewBucket(ctx, "CNAPPGoat-http-bucket", &s3.BucketArgs{
+		bucket, err := s3.NewBucket(ctx, "CNAPPgoat-http-bucket", &s3.BucketArgs{
 			Tags: pulumi.StringMap{
-				"Name":      pulumi.String("CNAPPGoat-http-bucket"),
+				"Name":      pulumi.String("CNAPPgoat-http-bucket"),
 				"Cnappgoat": pulumi.String("true"),
 			}},
 		)
@@ -20,16 +20,16 @@ func main() {
 		}
 
 		// Upload a secret file to the bucket
-		bucketObject, err := s3.NewBucketObject(ctx, "CNAPPGoat-http-data", &s3.BucketObjectArgs{
+		bucketObject, err := s3.NewBucketObject(ctx, "CNAPPgoat-http-data", &s3.BucketObjectArgs{
 			Bucket:      bucket.ID(),
-			Key:         pulumi.String("CNAPPGoat-http-data"),
+			Key:         pulumi.String("CNAPPgoat-http-data"),
 			Source:      pulumi.NewFileAsset("http.txt"),
 			ContentType: pulumi.String("text/plain"),
 		})
 		if err != nil {
 			return err
 		}
-		ctx.Export("CNAPPGoat-http-bucket", bucket.Arn)
+		ctx.Export("CNAPPgoat-http-bucket", bucket.Arn)
 		ctx.Export("object-key", bucketObject.Key)
 		return nil
 	})
