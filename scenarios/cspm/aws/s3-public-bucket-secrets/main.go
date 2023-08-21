@@ -13,7 +13,7 @@ func main() {
 		// Create a new S3 bucket
 		bucket, err := s3.NewBucketV2(
 			ctx,
-			"CnappgoatPublicBucket",
+			"CNAPPgoat-public-bucket",
 			&s3.BucketV2Args{
 				Tags: pulumi.StringMap{
 					"Cnappgoat": pulumi.String("true"),
@@ -23,7 +23,7 @@ func main() {
 		if err != nil {
 			return err
 		}
-		publicAccessBlock, err := s3.NewBucketPublicAccessBlock(ctx, "cnappgoatBucketPublicAccessBlock", &s3.BucketPublicAccessBlockArgs{
+		publicAccessBlock, err := s3.NewBucketPublicAccessBlock(ctx, "CNAPPgoat-public-bucket-access-block", &s3.BucketPublicAccessBlockArgs{
 			Bucket:                bucket.ID(),
 			BlockPublicAcls:       pulumi.Bool(false),
 			BlockPublicPolicy:     pulumi.Bool(false),
@@ -34,7 +34,7 @@ func main() {
 			return err
 		}
 
-		_, err = s3.NewBucketPolicy(ctx, "bucketPolicy", &s3.BucketPolicyArgs{
+		_, err = s3.NewBucketPolicy(ctx, "CNAPPgoat-public-bucket-policy", &s3.BucketPolicyArgs{
 			Bucket: bucket.ID(),
 			Policy: bucket.ID().ApplyT(func(id pulumi.String) (pulumi.String, error) {
 				return pulumi.String(fmt.Sprintf(`{
@@ -56,16 +56,16 @@ func main() {
 		}
 
 		// Upload a secret file to the bucket
-		bucketObject, err := s3.NewBucketObject(ctx, "CnappgoatSecret", &s3.BucketObjectArgs{
+		bucketObject, err := s3.NewBucketObject(ctx, "CNAPPgoat-public-bucket-secret-object", &s3.BucketObjectArgs{
 			Bucket:      bucket.ID(),
-			Key:         pulumi.String("CnappgoatSecret"),
+			Key:         pulumi.String("CNAPPgoatSecret"),
 			Source:      pulumi.NewFileAsset("secret.txt"),
 			ContentType: pulumi.String("text/plain"),
 		})
 		if err != nil {
 			return err
 		}
-		ctx.Export("bucket", bucket.Arn)
+		ctx.Export("CNAPPgoat-public-bucket", bucket.Arn)
 		ctx.Export("object-key", bucketObject.Key)
 		return nil
 	})

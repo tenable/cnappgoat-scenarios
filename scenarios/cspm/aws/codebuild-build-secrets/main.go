@@ -16,7 +16,7 @@ func main() {
 			return err
 		}
 		accountID := callerIdentity.AccountId
-		codebuildRole, err := iam.NewRole(ctx, "codebuildRole", &iam.RoleArgs{
+		CNAPPgoatCodebuildRole, err := iam.NewRole(ctx, "CNAPPgoatCodebuildRole", &iam.RoleArgs{
 			AssumeRolePolicy: pulumi.String(`{
 				"Version": "2012-10-17",
 				"Statement": [
@@ -44,8 +44,8 @@ func main() {
 				{
 					"Effect": "Allow",
 					"Resource": [
-						"arn:aws:logs:eu-central-1:%s:log-group:/aws/codebuild/cnappgoat-codebuild",
-						"arn:aws:logs:eu-central-1:%s:log-group:/aws/codebuild/cnappgoat-codebuild:*"
+						"arn:aws:logs:eu-central-1:%s:log-group:/aws/codebuild/CNAPPgoat-Codebuild",
+						"arn:aws:logs:eu-central-1:%s:log-group:/aws/codebuild/CNAPPgoat-Codebuild:*"
 					],
 					"Action": [
 						"logs:CreateLogGroup",
@@ -76,21 +76,21 @@ func main() {
 						"codebuild:BatchPutCodeCoverages"
 					],
 					"Resource": [
-						"arn:aws:codebuild:eu-central-1:%s:report-group/cnappgoat-codebuild-*"
+						"arn:aws:codebuild:eu-central-1:%s:report-group/CNAPPgoat-Codebuild-*"
 					]
 				}
 			]
 		}`, accountID, accountID, accountID)
 
 		// Create a Role Policy and attach it to the Role
-		_, err = iam.NewRolePolicy(ctx, "CnappgoatCodebuildRolePolicy", &iam.RolePolicyArgs{
-			Role:   codebuildRole.Name,
+		_, err = iam.NewRolePolicy(ctx, "CNAPPgoatCodebuildRolePolicy", &iam.RolePolicyArgs{
+			Role:   CNAPPgoatCodebuildRole.Name,
 			Policy: pulumi.String(policy),
 		})
 
 		// Create AWS CodeBuild project
-		codebuildProject, err := codebuild.NewProject(ctx, "cnappgoat-codebuild", &codebuild.ProjectArgs{
-			Name: pulumi.String("cnappgoat-codebuild"),
+		codebuildProject, err := codebuild.NewProject(ctx, "CNAPPgoat-Codebuild", &codebuild.ProjectArgs{
+			Name: pulumi.String("CNAPPgoat-Codebuild"),
 			Artifacts: codebuild.ProjectArtifactsArgs{
 				Type: pulumi.String("NO_ARTIFACTS"),
 			},
@@ -108,7 +108,7 @@ phases:
     commands:
       - echo "administrator-123151010-21.139.152.142-rdp" >> my-rdp-creds.txt;`),
 			},
-			ServiceRole:  codebuildRole.Arn,
+			ServiceRole:  CNAPPgoatCodebuildRole.Arn,
 			BuildTimeout: pulumi.Int(5),
 			Tags: pulumi.StringMap{
 				"Cnappgoat": pulumi.String("true"),
@@ -117,7 +117,7 @@ phases:
 		if err != nil {
 			return err
 		}
-		ctx.Export("codebuildRole", codebuildRole.Arn)
+		ctx.Export("CNAPPgoatCodebuildRole", CNAPPgoatCodebuildRole.Arn)
 		ctx.Export("codebuildProject", codebuildProject.Arn)
 		return nil
 	})
