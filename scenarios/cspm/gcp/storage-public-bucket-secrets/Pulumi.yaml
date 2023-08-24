@@ -1,0 +1,18 @@
+name: cspm-gcp-public-bucket-secrets-storage
+runtime: go
+description: This scenario deploys a public bucket with secrets in it, since this public bucket is accesible by anyone, the secrets
+  can be easily leaked and abused for unauthorized access.
+cnappgoat-params:
+  description: In the presented scenario, a storage bucket is made public, containing sensitive secrets. 
+    This openly accessible configuration poses a substantial risk. Secrets, when exposed, can be exploited by malicious actors leading to 
+    unauthorized system penetrations and potential data breaches. It's imperative to enforce robust access controls, regularly audit access
+    logs, and use encryption measures.
+    Keeping data security at the forefront can prevent unwanted exposures and the repercussions that follow.
+  friendlyName: Public Bucket With Secrets Inside
+  id: cspm-gcp-public-bucket-secrets-storage
+  module: cspm
+  scenarioType: native
+  platform: gcp
+config:
+  gcp:project: research-338014
+  gcp:region: us-central1

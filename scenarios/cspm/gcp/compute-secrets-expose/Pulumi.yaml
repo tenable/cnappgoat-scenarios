@@ -1,0 +1,18 @@
+name: cspm-gcp-secrets-expose-compute
+runtime: go
+description: This scenario deploys a compute instance in GCE and stores secrets in its metadata start-up script. These secrets can be
+  potentially leaked and unauthorized access to arbitrary services can occur.
+cnappgoat-params:
+  description: In this situation, a compute instance is deployed on GCE, with secrets embedded directly within its metadata start-up 
+    script. Such an approach poses notable vulnerabilities. If these secrets are exposed, they become a gateway for malicious entities to
+    gain unauthorized entry into various services. It's crucial to adopt encrypted storage solutions, implement stringent access controls,
+    and regularly monitor activity logs.
+    Diligent management of secrets can significantly mitigate the associated risks and safeguard systems.
+  friendlyName: Compute With Secrets Exposed
+  id: cspm-gcp-secrets-expose-compute
+  module: cspm
+  scenarioType: native
+  platform: gcp
+config:
+  gcp:project: research-338014
+  gcp:region: us-central1

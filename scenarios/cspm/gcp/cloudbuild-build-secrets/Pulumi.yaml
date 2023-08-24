@@ -1,0 +1,18 @@
+name: cspm-gcp-build-secrets-cloudbuild
+runtime: go
+description: This scenario deploys a Cloud Build trigger with secrets in its build script. 
+  These secrets can be potentially leaked and unauthorized access to arbitrary services can occur.
+cnappgoat-params:
+  description: In this outlined scenario, a Cloud Build trigger is set into motion, containing secrets directly embedded within its build
+   script. Such an approach inherently poses security vulnerabilities. If the build logs are not adequately protected or if the scripts 
+   are exposed, these embedded secrets become susceptible to interception. Unauthorized entities could potentially access and misuse
+   these secrets, leading to unintended service access or even broader system compromises.
+   Ensuring encryption, using managed secret solutions, and monitoring access are vital steps to enhance security in such deployments.
+  friendlyName: Secrets In Cloud Build Trigger Script
+  id: cspm-gcp-build-secrets-cloudbuild
+  module: cspm
+  scenarioType: native
+  platform: gcp
+config:
+  gcp:project: research-338014
+  gcp:region: us-central1
