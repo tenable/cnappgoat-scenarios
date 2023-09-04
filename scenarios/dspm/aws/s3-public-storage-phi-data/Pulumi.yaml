@@ -1,0 +1,56 @@
+name: dspm-aws-s3-public-storage-phi-data
+runtime: yaml
+description: The scenario provision public access level S3 bucket containing PHI data.
+cnappgoat-params:
+  description: In this scenario, a publicly accessible Amazon Simple Storage Service (S3) bucket
+   is provisioned to contain protected health information (PHI) data. 
+   The data is stored in two separate files. The primary objective of this scenario is to simulate an AWS S3 bucket containing basic 
+   sensitive information, with the aim of testing whether a data security product is capable 
+   of detecting this type of data. This exercise is crucial in evaluating the effectiveness of 
+   the security product in identifying and protecting sensitive information stored in 
+   cloud-based storage services.
+  friendlyName: Public access levels S3 Bucket with PHI Data
+  id: dspm-aws-s3-public-storage-phi-data
+  module: dspm
+  scenarioType: native
+  platform: aws
+
+resources:
+  CnappgoatBucket:
+    type: aws:s3:BucketV2
+    properties:
+      tags:
+        Cnappgoat: true
+  CnappgoatBucketOwnershipControls:
+    type: aws:s3:BucketOwnershipControls
+    properties:
+      bucket: ${CnappgoatBucket.id}
+      rule:
+        objectOwnership: BucketOwnerPreferred
+  CnappgoatBucketPublicAccessBlock:
+    type: aws:s3:BucketPublicAccessBlock
+    properties:
+      bucket: ${CnappgoatBucket.id}
+      blockPublicAcls: false
+      blockPublicPolicy: false
+      ignorePublicAcls: false
+      restrictPublicBuckets: false
+  CnappgoatBucketAclV2:
+    type: aws:s3:BucketAclV2
+    properties:
+      bucket: ${CnappgoatBucket.id}
+      acl: public-read
+    options:
+      dependsOn:
+        - ${CnappgoatBucketOwnershipControls}
+        - ${CnappgoatBucketPublicAccessBlock}
+  synced-folder:
+    type: synced-folder:index:S3BucketFolder
+    properties:
+      path: ./data
+      bucketName: ${CnappgoatBucket.bucket}
+      acl: public-read
+outputs:
+  bucketArn: ${CnappgoatBucket.arn}
+  bucketId: ${CnappgoatBucket.id}
+  DomainName: ${CnappgoatBucket.bucketRegionalDomainName}

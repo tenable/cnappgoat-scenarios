@@ -1,0 +1,73 @@
+name: dspm-azure-blob-container-account-storage-private-public-key
+runtime: yaml
+description: This scenario provisions Azure Blob Containers containing a private key and a public certificate
+cnappgoat-params:
+  description: | 
+    In this scenario, two separate Azure Blob Containers within a Storage Account are set up, both restricted to owner access 
+    only. Each container holds a blob with critical security data. The first container contains a blob that holds a private key, 
+    while the second container has a blob with a public certificate. The objective of this scenario is to emulate Azure Blob 
+    Containers that store essential security components such as private keys and public certificates. T
+    his exercise aims to evaluate the capability of a data security product to detect and identify this specific type of 
+    sensitive information.
+  friendlyName: Azure Blob Container with Security Key and Certificate Evaluation
+  id: dspm-azure-blob-container-account-storage-private-public-key
+  config:
+    azure-native:location: EastUS2
+  module: dspm
+  scenarioType: native
+  platform: azure
+
+resources:
+  cnappgoatResourceGroup:
+    type: azure-native:resources:ResourceGroup
+  cnappgoataccount:
+    type: azure-native:storage:StorageAccount
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      kind: StorageV2
+      sku:
+        name: Standard_LRS
+  cnappgoatcontainer:
+    type: azure-native:storage:BlobContainer
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      accountName: ${cnappgoataccount.name}
+
+  synced-folder:
+    type: synced-folder:index:AzureBlobFolder
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      storageAccountName: ${cnappgoataccount.name}
+      containerName: ${cnappgoatcontainer.name}
+      path: ./data/1
+
+  cnappgoatRG2:
+    type: azure-native:resources:ResourceGroup
+  cnappgoatacc2:
+    type: azure-native:storage:StorageAccount
+    properties:
+      resourceGroupName: ${cnappgoatRG2.name}
+      kind: StorageV2
+      sku:
+        name: Standard_LRS
+  cnappgoatcon2:
+    type: azure-native:storage:BlobContainer
+    properties:
+      resourceGroupName: ${cnappgoatRG2.name}
+      accountName: ${cnappgoatacc2.name}
+
+  synced-folder2:
+    type: synced-folder:index:AzureBlobFolder
+    properties:
+      resourceGroupName: ${cnappgoatRG2.name}
+      storageAccountName: ${cnappgoatacc2.name}
+      containerName: ${cnappgoatcon2.name}
+      path: ./data/2
+
+outputs:
+  cnappgoatresourcegroup: ${cnappgoatResourceGroup.name}
+  cnappgoatstorageaccount: ${cnappgoataccount.name}
+  cnappgoatcontainer: ${cnappgoatcontainer.name}
+  cnappgoatresourcegroup2: ${cnappgoatRG2.name}
+  cnappgoatstorageaccount2: ${cnappgoatacc2.name}
+  cnappgoatcontainer2: ${cnappgoatcon2.name}

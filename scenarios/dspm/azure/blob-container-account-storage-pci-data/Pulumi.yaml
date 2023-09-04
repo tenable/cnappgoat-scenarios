@@ -1,0 +1,46 @@
+name: dspm-azure-blob-container-account-storage-pci-data
+runtime: yaml
+description: The scenario provision an Azure Storage Account with Blob Container containing PCI data.
+cnappgoat-params:
+  description: |
+    In this scenario, an Azure Storage Account with Blob Containers, restricted to organization access only, is provisioned 
+    to store payment card industry (PCI) data. The data is maintained in two distinct blobs. The primary purpose of this 
+    scenario is to emulate an Azure Blob Container containing basic sensitive information, with the goal of testing a data 
+    security product's ability to detect such data. This assessment is crucial in evaluating the security product's 
+    effectiveness in identifying and safeguarding sensitive information housed within cloud-based storage services.
+  friendlyName: Azure Blob Container with PCI data
+  id: dspm-azure-blob-container-account-storage-pci-data
+  config:
+    azure-native:location: EastUS2
+  module: dspm
+  scenarioType: native
+  platform: azure
+
+resources:
+  cnappgoatResourceGroup:
+    type: azure-native:resources:ResourceGroup
+  cnappgoataccount:
+    type: azure-native:storage:StorageAccount
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      kind: StorageV2
+      sku:
+        name: Standard_LRS
+  cnappgoatcontainer:
+    type: azure-native:storage:BlobContainer
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      accountName: ${cnappgoataccount.name}
+
+  synced-folder:
+    type: synced-folder:index:AzureBlobFolder
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      storageAccountName: ${cnappgoataccount.name}
+      containerName: ${cnappgoatcontainer.name}
+      path: ./data
+
+outputs:
+  cnappgoatresourcegroup: ${cnappgoatResourceGroup.name}
+  cnappgoatstorageaccount: ${cnappgoataccount.name}
+  cnappgoatcontainer: ${cnappgoatcontainer.name}
