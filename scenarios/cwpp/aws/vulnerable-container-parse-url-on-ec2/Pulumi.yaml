@@ -1,8 +1,6 @@
 name: cwpp-aws-vulnerable-container-parse-url-on-ec2
 runtime: go
-description: CNAPPgoat scenario for deploying an SSRF vulnerable application on an EC2 instance, using a vulnerable version of parse-url - in order to demonstrate the extraction of credentials as well as using a presigned URL to manipulate the instance to make a call to an AWS service.
-backend:
-  url: file:///Users/liorzatlavi/.cnappgoat
+description: Demonstration of using a presigned URL to trigger an AWS service from an EC2 instance exposed to SSRF
 cnappgoat-params:
   description: | 
     ### General 
