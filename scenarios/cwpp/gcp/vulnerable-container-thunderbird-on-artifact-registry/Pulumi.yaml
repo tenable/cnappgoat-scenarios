@@ -1,0 +1,14 @@
+name: cwpp-gcp-vulnerable-container-thunderbird-on-artifact-registry
+runtime: go
+description: This scenario creates an artifact registry and uploads a vulnerable thunderbird image. Issues arise from vulnerable images in the registry. Remediation includes deleting the vulnerable
+  images and uploading secure ones.
+cnappgoat-params:
+  module: cwpp
+  platform: gcp
+  id: cwpp-gcp-vulnerable-container-thunderbird-on-artifact-registry
+  friendlyName: Vulnerable Container Thunderbird On Artifact Registry
+  description: this scenario creates a new Artifact Registry in GCP and copies a vulnerable Thunderbird
+    image onto it. The problem lies in the strategic placement of a compromised
+    container, which could lead to potential security issues. To resolve these issues,
+    it's important to maintain updated, non-vulnerable images.
+  scenarioType: native

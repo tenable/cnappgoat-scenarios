@@ -1,0 +1,11 @@
+name: cwpp-gcp-vulnerable-container-jenkins-on-vm
+runtime: go
+description: This scenario creates a VM with a vulnerable Jenkins image. The main problem is it intentionally introduces vulnerability,
+  leaving the system exposed. To correct this, create a safe testing environment or use up-to-date, secure Jenkins images.
+cnappgoat-params:
+  module: cwpp
+  platform: gcp
+  id: cwpp-gcp-vulnerable-container-jenkins-on-vm
+  friendlyName: Vulnerable Container Jenkins On VM
+  description: This scenario deploys a VM containing a vulnerable Jenkins version. To remediate this, ensure Jenkins is updated to the latest version.
+  scenarioType: native

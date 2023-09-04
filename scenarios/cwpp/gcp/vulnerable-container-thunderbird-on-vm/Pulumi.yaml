@@ -1,0 +1,12 @@
+name: cwpp-gcp-vulnerable-container-thunderbird-on-vm
+runtime: go
+description: This scenario creates a VM with a vulnerable Thunderbird image. 
+  To correct this, create a safe testing environment
+  or use up-to-date, secure Thunderbird images.
+cnappgoat-params:
+  module: cwpp
+  platform: gcp
+  id: cwpp-gcp-vulnerable-container-thunderbird-on-vm
+  friendlyName: Vulnerable Container Thunderbird On VM
+  description: This scenario deploys a VM containing a vulnerable Thunderbird version. To remediate this, ensure Thunderbird is updated to the latest version.
+  scenarioType: native

@@ -1,0 +1,15 @@
+name: cwpp-gcp-malicious-container-xmrig-on-vm
+runtime: go
+description: This scenario creates a VM with malware loaded (XMRig crypto miner).
+  Resolving this requires enabling malware detection engine in your environment.
+cnappgoat-params:
+  module: cwpp
+  platform: gcp
+  id: cwpp-gcp-malicious-container-xmrig-on-vm
+  friendlyName: Malicious Container Xmrig On VM
+  description: The "cwpp-gcp-malicious-container-xmrig-on-vm" scenario creates a
+    virtual machine (VM) and loads a malicious image (crypto miner), aiming to evaluate
+    your CNAPP solution's ability to detect harmful files. However, this approach
+    is problematic as it exposes your organization's infrastructure to malicious threats.
+    To mitigate this, consider deploying a malware detection engine in your environment.
+  scenarioType: native

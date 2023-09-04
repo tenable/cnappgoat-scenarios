@@ -1,0 +1,16 @@
+name: cwpp-gcp-malicious-container-xmrig-on-artifact-registry
+runtime: go
+description: This scenario creates an GCP Artifact Registry laden with a
+  malicious xmrig miner image. Its flaw lies in facilitating harmful image distribution.
+  Mitigation involves detect and alert about such malicious images.
+cnappgoat-params:
+  module: cwpp
+  platform: gcp
+  id: cwpp-gcp-malicious-container-xmrig-on-artifact-registry
+  friendlyName: Malicious Container Xmrig On Artifact Registry
+  description: This scenario creates an Artifact Registry on GCP
+    hosting a malicious xmrig miner image. The issue lies in its unsecured
+    copy, leaving your environment vulnerable to malware. It recommends strengthening your
+    CNAPP defenses against such security threats. Remediation involves the deployment
+    of robust intrusion detection systems to proactively identify any suspicious activity.
+  scenarioType: native
