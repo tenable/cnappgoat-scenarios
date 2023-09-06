@@ -6,6 +6,6 @@ cnappgoat-params:
   module: cwpp
   platform: gcp
   id: cwpp-gcp-vulnerable-container-redis-on-vm
-  friendlyName: Vulnerable Container Redis On VM
-  description: This scenario deploys a VM containing a vulnerable Redis version. To remediate this, ensure Redis is updated to the latest version.
+  friendlyName: Vulnerable Container Redis On VM (CVE-2022-0543)
+  description: This scenario deploys a VM containing a vulnerable Redis version (CVE-2022-0543) (https://nvd.nist.gov/vuln/detail/CVE-2022-0543). To remediate this, ensure Redis is updated to the latest version.
   scenarioType: native
