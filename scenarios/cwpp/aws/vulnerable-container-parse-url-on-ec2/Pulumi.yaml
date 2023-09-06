@@ -10,7 +10,7 @@ cnappgoat-params:
     The scenario has two components: 
 
     - The main component is an application vulnerable to SSRF. In an attempt to mitigate access to the IMDS, the application uses a version of parse-url which is exposed to a critical CVE (CVE-2022-2216). This should make the scenario detectable by CNAPP solutions that include a Cloud Workload Protection ability. The application is run on a docker container and listens on port 80. 
-    - The other component is a flask application serving the aws_url_signer tool (acknowledgement below) via an APIon port 5000. The app accepts requests to sign url calls to AWS services including the service, action and additional parameters as well as session credentials used for signing. 
+    - The other component is a flask application serving the aws_url_signer tool (acknowledgement below), with slight modifications, via an APIon port 5000. The app accepts requests to sign url calls to AWS services including the service, action and additional parameters as well as session credentials used for signing. 
 
     The scenario deploys both containers on an EC2 instance with IMDSv1 enabled and publicly accessible to the internet on ports 22 (in case a user would want to SSH into the machine for configuration / exploration), 2375 (to retrieve the docker images) and of course 80 and 5000. 
 
