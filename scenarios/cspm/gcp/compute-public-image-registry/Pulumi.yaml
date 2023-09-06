@@ -1,0 +1,16 @@
+name: cspm-gcp-public-image-registry
+runtime: go
+description: This scenario deploys a public image in artifact registry. This image can be pulled by anyone and pose a security risk
+  through leakage of sensitive data, secrets and more.
+cnappgoat-params:
+  description: In this scenario, an image is deployed in artifact registry with an attached IAM configuration setting it to be publicly
+    readable, making it accessible to any individual or entity.
+    Such open accessibility raises significant security concerns. The image, if not properly configured or containing embedded sensitive
+    data, could potentially lead to the exposure of confidential information, system secrets, or other critical data. It's imperative to
+    adopt protective measures like private repositories, scan for vulnerabilities, and strict access controls to ensure the safeguarding
+    of the images and the embedded data.
+  friendlyName: Public Image In Artifact Registry
+  id: cspm-gcp-public-image-registry
+  module: cspm
+  scenarioType: native
+  platform: gcp

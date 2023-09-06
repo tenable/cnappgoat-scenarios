@@ -1,0 +1,73 @@
+name: dspm-aws-s3-organization-storage-sensitive-data-iso
+runtime: yaml
+description: The scenario provision organization access level S3 bucket containing iso files
+cnappgoat-params:
+  description:  In this scenario, an Amazon S3 bucket is set up with access limited to the organization 
+    and is used to store sensitive iso files. The main objective is to evaluate a data security product's 
+    capacity to identify this type of data. This evaluation is crucial for determining the product's ability 
+    to detect and protect sensitive information in cloud storage services.
+  friendlyName: Organization access level S3 Buckets with sensitive iso files
+  id: dspm-aws-s3-organization-storage-sensitive-data-iso
+  module: dspm
+  scenarioType: native
+  platform: aws
+
+variables:
+  myOrganization:
+    fn::invoke:
+      function: aws:organizations:getOrganization
+      arguments: {}
+
+resources:
+
+  # first bucket
+  cnappgoatBucket:
+    type: aws:s3:BucketV2
+    properties:
+      tags:
+        Cnappgoat: true
+  cnappgoatBucketOwnershipControls:
+    type: aws:s3:BucketOwnershipControls
+    properties:
+      bucket: ${cnappgoatBucket.id}
+      rule:
+        objectOwnership: BucketOwnerPreferred
+  allowAccessFromOrgPolicy:
+    type: aws:s3:BucketPolicy
+    properties:
+      bucket: ${cnappgoatBucket.id}
+      policy: |
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "Allow",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "s3:*",
+              "Resource": [
+                "arn:aws:s3:::${cnappgoatBucket.bucket}",
+                "arn:aws:s3:::${cnappgoatBucket.bucket}/*"
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "aws:PrincipalOrgID": "${myOrganization.id}"
+                }
+              }
+            }
+          ]
+        }
+    options:
+      dependsOn:
+        - ${cnappgoatBucketOwnershipControls}
+  synced-folder:
+    type: synced-folder:index:S3BucketFolder
+    properties:
+      path: ./data/1
+      bucketName: ${cnappgoatBucket.id}
+      acl: private
+
+outputs:
+  bucketArn: ${cnappgoatBucket.arn}
+  bucketId: ${cnappgoatBucket.id}
+  bucketDomainName: ${cnappgoatBucket.bucketRegionalDomainName}

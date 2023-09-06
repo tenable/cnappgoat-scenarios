@@ -1,0 +1,125 @@
+name: dspm-aws-s3-organization-storage-pii-data-password-hash
+runtime: yaml
+description: The scenario provision organization access level S3 buckets containing PII data.
+cnappgoat-params:
+  description: In this scenario, two Amazon Simple Storage Service (S3) buckets are provisioned with 
+    organization access only, each containing a file that holds both personally identifiable information (PII) 
+    and password hashes of users. The data is stored in two separate files, a CSV file in one bucket and 
+    an XLSX file in the other. Each file includes users' basic information, along with their corresponding 
+    password hashes. The primary goal of this scenario is to simulate AWS S3 buckets that contain sensitive 
+    user data, including password hashes. This exercise is designed to assess a data security product's ability to detect and recognize this specific kind of sensitive information. This evaluation is crucial for determining the security product's efficiency in identifying and protecting sensitive user information.
+  friendlyName: Organization access level S3 Buckets with PII Data and Password Hash
+  id: dspm-aws-s3-organization-storage-pii-data-password-hash
+  module: dspm
+  scenarioType: native
+  platform: aws
+
+variables:
+  myOrganization:
+    fn::invoke:
+      function: aws:organizations:getOrganization
+      arguments: {}
+
+resources:
+
+  # first bucket
+  cnappgoatBucket:
+    type: aws:s3:BucketV2
+    properties:
+      tags:
+        Cnappgoat: true
+  cnappgoatBucketOwnershipControls:
+    type: aws:s3:BucketOwnershipControls
+    properties:
+      bucket: ${cnappgoatBucket.id}
+      rule:
+        objectOwnership: BucketOwnerPreferred
+  allowAccessFromOrgPolicy:
+    type: aws:s3:BucketPolicy
+    properties:
+      bucket: ${cnappgoatBucket.id}
+      policy: |
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "Allow",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "s3:*",
+              "Resource": [
+                "arn:aws:s3:::${cnappgoatBucket.bucket}",
+                "arn:aws:s3:::${cnappgoatBucket.bucket}/*"
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "aws:PrincipalOrgID": "${myOrganization.id}"
+                }
+              }
+            }
+          ]
+        }
+    options:
+      dependsOn:
+        - ${cnappgoatBucketOwnershipControls}
+  synced-folder:
+    type: synced-folder:index:S3BucketFolder
+    properties:
+      path: ./data/1
+      bucketName: ${cnappgoatBucket.id}
+      acl: private
+  
+  # second bucket
+  cnappgoatBucket2:
+    type: aws:s3:BucketV2
+    properties:
+      tags:
+        Cnappgoat: true
+  cnappgoatBucket2OwnershipControls:
+    type: aws:s3:BucketOwnershipControls
+    properties:
+      bucket: ${cnappgoatBucket2.id}
+      rule:
+        objectOwnership: BucketOwnerPreferred
+  allowAccessFromOrgPolicy2:
+    type: aws:s3:BucketPolicy
+    properties:
+      bucket: ${cnappgoatBucket2.id}
+      policy: |
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "Allow",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "s3:*",
+              "Resource": [
+                "arn:aws:s3:::${cnappgoatBucket2.bucket}",
+                "arn:aws:s3:::${cnappgoatBucket2.bucket}/*"
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "aws:PrincipalOrgID": "${myOrganization.id}"
+                }
+              }
+            }
+          ]
+        }
+    options:
+      dependsOn:
+        - ${cnappgoatBucket2OwnershipControls}
+  synced-folder2:
+    type: synced-folder:index:S3BucketFolder
+    properties:
+      path: ./data/2
+      bucketName: ${cnappgoatBucket2.id}
+      acl: private
+
+outputs:
+  bucketArn: ${cnappgoatBucket.arn}
+  bucketId: ${cnappgoatBucket.id}
+  bucketDomainName: ${cnappgoatBucket.bucketRegionalDomainName}
+  bucket2Arn: ${cnappgoatBucket2.arn}
+  bucket2Id: ${cnappgoatBucket2.id}
+  bucket2DomainName: ${cnappgoatBucket2.bucketRegionalDomainName}

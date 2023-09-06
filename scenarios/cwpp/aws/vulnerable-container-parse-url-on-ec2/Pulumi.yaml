@@ -1,0 +1,30 @@
+name: cwpp-aws-vulnerable-container-parse-url-on-ec2
+runtime: go
+description: Demonstration of using a presigned URL to trigger an AWS service from an EC2 instance exposed to SSRF
+cnappgoat-params:
+  description: | 
+    ### General 
+    This scenario is a demonstration of leveraging an SSRF vulnerability to make an EC2 instance make a GET call to a URL signed by exfiltrated credentials from the EC2 instance's IMDS. That call triggers an AWS service FROM the instance, so it shouldn't be detected as credentials use outside of the instance. 
+    
+    ### Architecture  
+    The scenario has two components: 
+
+    - The main component is an application vulnerable to SSRF. In an attempt to mitigate access to the IMDS, the application uses a version of parse-url which is exposed to a critical CVE (CVE-2022-2216). This should make the scenario detectable by CNAPP solutions that include a Cloud Workload Protection ability. The application is run on a docker container and listens on port 80. 
+    - The other component is a flask application serving the aws_url_signer tool (acknowledgement below) via an APIon port 5000. The app accepts requests to sign url calls to AWS services including the service, action and additional parameters as well as session credentials used for signing. 
+
+    The scenario deploys both containers on an EC2 instance with IMDSv1 enabled and publicly accessible to the internet on ports 22 (in case a user would want to SSH into the machine for configuration / exploration), 2375 (to retrieve the docker images) and of course 80 and 5000. 
+
+    ### Playbook 
+    The web application guides the user into exploiting it. First the user tries to access the IMDS by leveraging the SSRF vulnerability it's exposed to - only to be detected by the app. However! the user is then guided to use a URL that can leverage the vulnerability the parse-url lib is exposed to in order to by-pass that detection. Following that, the user can retreive session credentials from the IMDS using the SSRF vulnerability the application has.
+
+    Following the retrieval of the credentials, the user can then easily make a request to the flask application serving the aws_url_signer tool. That request will include the credentials and the action information and should be responded with a signed URL that can then be called from to the EC2 instance using the SSRF vulnerability. That call should make the instance call the AWS service.  
+
+    ### Acknowledgements 
+    - The SSRF app is derived from previous work shared by Seth Art: https://github.com/sethsec/Nodejs-SSRF-App
+    - Stephen Bradshaw's aws_url_signer tool can be found here: https://github.com/stephenbradshaw/aws_url_signer
+    - CVE-2022-2216 exploitation was based on a report by Pocas on huntr: https://huntr.dev/bounties/505a3d39-2723-4a06-b1f7-9b2d133c92e1/
+  friendlyName: Vulnerable Container SSRF with parse-url On EC2
+  id: cwpp-aws-vulnerable-container-parse-url-on-ec2
+  module: cwpp
+  platform: aws
+  scenarioType: native

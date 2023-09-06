@@ -1,0 +1,72 @@
+name: dspm-azure-blob-container-account-storage-sensitive-data-compression
+runtime: yaml
+description: The scenario provision an organization S3 buckets containing compressed sensitive data
+cnappgoat-params:
+  description: |
+    In this scenario, two separate Azure Blob Containers within a Storage Account are created, with access restricted 
+    to the owner only. Each container holds a compressed blob with sensitive data. The primary purpose of this scenario 
+    is to emulate Azure Blob Containers that store sensitive data in compressed form. The exercise is intended to test a 
+    data security product's capabilities. Notably, the data in the first container is compressed once, while the data in 
+    the second container is compressed three times.
+  friendlyName: Azure Blob Containers with compressed sensitive data
+  id: dspm-azure-blob-container-account-storage-sensitive-data-compression
+  config:
+    azure-native:location: EastUS2
+  module: dspm
+  scenarioType: native
+  platform: azure
+
+resources:
+  cnappgoatResourceGroup:
+    type: azure-native:resources:ResourceGroup
+  cnappgoataccount:
+    type: azure-native:storage:StorageAccount
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      kind: StorageV2
+      sku:
+        name: Standard_LRS
+  cnappgoatcontainer:
+    type: azure-native:storage:BlobContainer
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      accountName: ${cnappgoataccount.name}
+
+  synced-folder:
+    type: synced-folder:index:AzureBlobFolder
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      storageAccountName: ${cnappgoataccount.name}
+      containerName: ${cnappgoatcontainer.name}
+      path: ./data/1
+
+  cnappgoatRG2:
+    type: azure-native:resources:ResourceGroup
+  cnappgoatacc2:
+    type: azure-native:storage:StorageAccount
+    properties:
+      resourceGroupName: ${cnappgoatRG2.name}
+      kind: StorageV2
+      sku:
+        name: Standard_LRS
+  cnappgoatcon2:
+    type: azure-native:storage:BlobContainer
+    properties:
+      resourceGroupName: ${cnappgoatRG2.name}
+      accountName: ${cnappgoatacc2.name}
+
+  synced-folder2:
+    type: synced-folder:index:AzureBlobFolder
+    properties:
+      resourceGroupName: ${cnappgoatRG2.name}
+      storageAccountName: ${cnappgoatacc2.name}
+      containerName: ${cnappgoatcon2.name}
+      path: ./data/2
+
+outputs:
+  cnappgoatresourcegroup: ${cnappgoatResourceGroup.name}
+  cnappgoatstorageaccount: ${cnappgoataccount.name}
+  cnappgoatcontainer: ${cnappgoatcontainer.name}
+  cnappgoatresourcegroup2: ${cnappgoatRG2.name}
+  cnappgoatstorageaccount2: ${cnappgoatacc2.name}
+  cnappgoatcontainer2: ${cnappgoatcon2.name}

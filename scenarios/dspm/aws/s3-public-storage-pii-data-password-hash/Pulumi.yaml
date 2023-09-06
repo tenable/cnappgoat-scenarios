@@ -1,0 +1,96 @@
+name: dspm-aws-s3-public-storage-pii-data-password-hash
+runtime: yaml
+description: The scenario provision public access level S3 bucket containing PII data.
+cnappgoat-params:
+  description: In this scenario, two publicly accessible Amazon Simple Storage Service (S3) 
+    buckets are provisioned, each containing a file with both personally identifiable information 
+    (PII) and password hashes of users. The data is stored in two distinct files, a CSV file in 
+    one bucket and an XLSX file in the other. Each file comprises users' basic information along 
+    with their respective password hashes. The primary purpose of this scenario is to emulate 
+    AWS S3 buckets that store sensitive user information, including password hashes. 
+    This exercise aims to test a data security product's capacity to detect and identify this 
+    specific type of sensitive data. The evaluation is essential for assessing the security 
+    product's effectiveness in identifying and safeguarding sensitive user information
+  friendlyName: Public access level S3 Buckets with PII Data and Password Hash
+  id: dspm-aws-s3-public-storage-pii-data-password-hash
+  module: dspm
+  scenarioType: native
+  platform: aws
+
+resources:
+  CnappgoatBucket:
+    type: aws:s3:BucketV2
+    properties:
+      tags:
+        Cnappgoat: true
+  CnappgoatBucketOwnershipControls:
+    type: aws:s3:BucketOwnershipControls
+    properties:
+      bucket: ${CnappgoatBucket.id}
+      rule:
+        objectOwnership: BucketOwnerPreferred
+  CnappgoatBucketPublicAccessBlock:
+    type: aws:s3:BucketPublicAccessBlock
+    properties:
+      bucket: ${CnappgoatBucket.id}
+      blockPublicAcls: false
+      blockPublicPolicy: false
+      ignorePublicAcls: false
+      restrictPublicBuckets: false
+  CnappgoatBucketAclV2:
+    type: aws:s3:BucketAclV2
+    properties:
+      bucket: ${CnappgoatBucket.id}
+      acl: public-read
+    options:
+      dependsOn:
+        - ${CnappgoatBucketOwnershipControls}
+        - ${CnappgoatBucketPublicAccessBlock}
+  synced-folder:
+    type: synced-folder:index:S3BucketFolder
+    properties:
+      path: ./data/1
+      bucketName: ${CnappgoatBucket.bucket}
+      acl: public-read
+  
+  CnappgoatBucket2:
+    type: aws:s3:BucketV2
+    properties:
+      tags:
+        Cnappgoat: true
+  CnappgoatBucket2OwnershipControls:
+    type: aws:s3:BucketOwnershipControls
+    properties:
+      bucket: ${CnappgoatBucket2.id}
+      rule:
+        objectOwnership: BucketOwnerPreferred
+  CnappgoatBucket2PublicAccessBlock:
+    type: aws:s3:BucketPublicAccessBlock
+    properties:
+      bucket: ${CnappgoatBucket2.id}
+      blockPublicAcls: false
+      blockPublicPolicy: false
+      ignorePublicAcls: false
+      restrictPublicBuckets: false
+  CnappgoatBucket2AclV2:
+    type: aws:s3:BucketAclV2
+    properties:
+      bucket: ${CnappgoatBucket2.id}
+      acl: public-read
+    options:
+      dependsOn:
+        - ${CnappgoatBucket2OwnershipControls}
+        - ${CnappgoatBucket2PublicAccessBlock}
+  synced-folder2:
+    type: synced-folder:index:S3BucketFolder
+    properties:
+      path: ./data/2
+      bucketName: ${CnappgoatBucket2.bucket}
+      acl: public-read
+outputs:
+  bucketArn: ${CnappgoatBucket.arn}
+  bucketId: ${CnappgoatBucket.id}
+  bucketDomainName: ${CnappgoatBucket.bucketRegionalDomainName}
+  bucket2Arn: ${CnappgoatBucket2.arn}
+  bucket2Id: ${CnappgoatBucket2.id}
+  bucket2DomainName: ${CnappgoatBucket2.bucketRegionalDomainName}

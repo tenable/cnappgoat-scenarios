@@ -1,0 +1,69 @@
+name: dspm-aws-s3-account-storage-basic-pii-data
+runtime: yaml
+description: The scenario provision account access level S3 bucket containing PII data.
+cnappgoat-params:
+  description: In this scenario, an Amazon Simple Storage Service (S3) bucket restricted to account access
+   only, ands is provisioned to store personally identifiable information (PII) data. 
+   The data is maintained in two distinct files, one formatted in CSV and the other in JSON. 
+   The primary purpose of this scenario is to emulate an AWS S3 bucket containing basic sensitive information,
+    with the goal of testing a data security product's ability to detect such data. 
+    This assessment is vital in evaluating the security product's effectiveness in identifying and 
+    safeguarding sensitive information housed within cloud-based storage services
+  friendlyName: Account access level S3 Bucket with Basic PII Data
+  id: dspm-aws-s3-account-storage-basic-pii-data
+  module: dspm
+  scenarioType: native
+  platform: aws
+
+variables:
+  bucketAccount:
+    fn::invoke:
+      function: aws:getCallerIdentity
+      arguments: {}
+
+resources:
+  cnappgoatBucket:
+    type: aws:s3:BucketV2
+    properties:
+      tags:
+        Cnappgoat: true
+  cnappgoatBucketOwnershipControls:
+    type: aws:s3:BucketOwnershipControls
+    properties:
+      bucket: ${cnappgoatBucket.id}
+      rule:
+        objectOwnership: BucketOwnerPreferred
+  allowAccessFromOrgPolicy:
+    type: aws:s3:BucketPolicy
+    properties:
+      bucket: ${cnappgoatBucket.id}
+      policy: |
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "AllowAccessFromMyAccount",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "arn:aws:iam::${bucketAccount.accountId}:root"
+              },
+              "Action": "s3:*",
+              "Resource": "arn:aws:s3:::${cnappgoatBucket.bucket}/*"
+            }
+          ]
+        }
+    options:
+      dependsOn:
+        - ${cnappgoatBucketOwnershipControls}
+  synced-folder:
+    type: synced-folder:index:S3BucketFolder
+    properties:
+      path: ./data
+      bucketName: ${cnappgoatBucket.id}
+      acl: private
+
+outputs:
+  bucketArn: ${cnappgoatBucket.arn}
+  bucketId: ${cnappgoatBucket.id}
+  domainName: ${cnappgoatBucket.bucketRegionalDomainName}
+  bucketAccount: ${bucketAccount.accountId}
