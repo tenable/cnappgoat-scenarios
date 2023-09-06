@@ -13,6 +13,3 @@ cnappgoat-params:
   module: cspm
   scenarioType: native
   platform: gcp
-config:
-  gcp:project: research-338014
-  gcp:region: us-central1
