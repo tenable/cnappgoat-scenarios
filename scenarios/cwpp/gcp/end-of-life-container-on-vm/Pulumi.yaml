@@ -1,0 +1,16 @@
+name: cwpp-gcp-end-of-life-container-on-vm
+runtime: go
+description: This scenario loads an End-of-life operating system. To fix this issue, 
+             Update the OS to a version currently maintained.
+cnappgoat-params:
+  module: cwpp
+  platform: gcp
+  id: cwpp-gcp-end-of-life-container-on-vm
+  friendlyName: End Of Life Container On VM
+  description: This scenario enables creation of a VM with an out-of-date OS, specifically Ubuntu 21.10, to test if the CNAPP solution generates
+    alerts for deprecated OS versions. The issue with this scenario is the intentional
+    use of an out-of-date OS which exposes the system to vulnerabilities and lacks
+    updates or support. To remediate this, refrain from using deprecated operating
+    system versions and ensure the OS image used for any VM creation is up-to-date
+    and receives regular security patches.
+  scenarioType: native

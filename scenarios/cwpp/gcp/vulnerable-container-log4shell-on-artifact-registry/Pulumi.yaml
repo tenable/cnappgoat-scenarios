@@ -1,0 +1,11 @@
+name: cwpp-gcp-vulnerable-container-log4shell-on-artifact-registry
+runtime: go
+description: This scenario allows you to create a new artifact registry and copy an image with vulnerable log4shell. 
+cnappgoat-params:
+  module: cwpp
+  platform: gcp
+  id: cwpp-gcp-vulnerable-container-log4shell-on-artifact-registry
+  friendlyName: Vulnerable Container log4shell On Artifact Registry
+  description: This scenario creates a new artifact registry  and copies an image with vulnerable log4shell. To address this issue, you should always ensure your container images are updated and use
+    vulnerability scanning tools to detect and fix possible security issues swiftly.
+  scenarioType: native

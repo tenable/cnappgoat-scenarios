@@ -1,0 +1,10 @@
+name: cwpp-gcp-vulnerable-container-log4shell-on-vm
+runtime: go
+description: This scenario allows you to create a VM and load an image that contains the log4shell vulnerability. Specifically it involves the creation of a vulnerable Apache Solr.
+cnappgoat-params:
+  module: cwpp
+  platform: gcp
+  id: cwpp-gcp-vulnerable-container-log4shell-on-vm
+  friendlyName: Vulnerable Container Log4shell On VM
+  description: This scenario sets up a Virtual Machine hosting an image with the log4shell vulnerability particularly focusing on a vulnerable Apache Solr. Remediation involves securing the VM post-testing including updating or removing the vulnerable image.
+  scenarioType: native
