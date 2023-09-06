@@ -6,6 +6,6 @@ cnappgoat-params:
   module: cwpp
   platform: gcp
   id: cwpp-gcp-vulnerable-container-jenkins-on-vm
-  friendlyName: Vulnerable Container Jenkins On VM
-  description: This scenario deploys a VM containing a vulnerable Jenkins version. To remediate this, ensure Jenkins is updated to the latest version.
+  friendlyName: Vulnerable Container Jenkins On VM (CVE-2021-21697)
+  description: This scenario deploys a VM containing a vulnerable Jenkins version (CVE-2021-21697) (https://nvd.nist.gov/vuln/detail/CVE-2021-21697). To remediate this, ensure Jenkins is updated to the latest version.
   scenarioType: native

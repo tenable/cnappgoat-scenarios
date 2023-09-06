@@ -8,9 +8,9 @@ cnappgoat-params:
   module: cwpp
   platform: aws
   id: cwpp-aws-vulnerable-container-tomcat-on-ec2
-  friendlyName: Vulnerable Container Tomcat On EC2
+  friendlyName: Vulnerable Container Tomcat On EC2 (CVE-2020-1938)
   description: The script configures and deploys an AWS EC2 instance running Docker
-    with a vulnerable Tomcat server. The issue lies in the deployment
+    with a vulnerable Tomcat server (CVE-2020-1938) (https://nvd.nist.gov/vuln/detail/CVE-2020-1938). The issue lies in the deployment
     of a compromised Tomcat server, posing a high risk of exploitation. For resolving
     this issue, replace the problematic Tomcat image with an updated, secure version
     or install the necessary patches to address known vulnerabilities.

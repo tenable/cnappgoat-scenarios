@@ -6,8 +6,8 @@ cnappgoat-params:
   module: cwpp
   platform: azure
   id: cwpp-azure-vulnerable-container-tomcat-on-vm
-  friendlyName: Vulnerable Container Tomcat On VM
-  description: This scenario deploys a VM containing a vulnerable Tomcat version. To remediate this, ensure Tomcat is updated to the latest version.
+  friendlyName: Vulnerable Container Tomcat On VM (CVE-2020-1938)
+  description: This scenario deploys a VM containing a vulnerable Tomcat version (CVE-2020-1938) (https://nvd.nist.gov/vuln/detail/CVE-2020-1938). To remediate this, ensure Tomcat is updated to the latest version.
 
   config:
     azure-native:location: EastUS2

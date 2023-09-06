@@ -8,9 +8,9 @@ cnappgoat-params:
   module: cwpp
   platform: aws
   id: cwpp-aws-vulnerable-container-log4shell-on-ecr
-  friendlyName: Vulnerable Container Log4shell On ECR
+  friendlyName: Vulnerable Container Log4shell On ECR (CVE-2021-44228)
   description: The provided scenario deploys an Elastic Container Registry (ECR) with
-    a Docker image that has a log4shell vulnerability, allowing potential system takeover
+    a Docker image that has a log4shell vulnerability (CVE-2021-44228) (https://nvd.nist.gov/vuln/detail/CVE-2021-44228), allowing potential system takeover
     by attackers. The issue stems from using an unpatched version of log4j in the
     Docker container. Remediation includes updating to the latest patched version
     of log4j or implementing security tools to identify and correct Docker image vulnerabilities

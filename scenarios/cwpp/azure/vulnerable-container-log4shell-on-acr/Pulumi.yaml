@@ -5,8 +5,8 @@ cnappgoat-params:
   module: cwpp
   platform: azure
   id: cwpp-azure-vulnerable-container-log4shell-on-acr
-  friendlyName: Vulnerable Container log4shell On ACR
-  description: This scenario creates a new ACR  and copies an image with vulnerable log4shell. To address this issue, you should always ensure your container images are updated and use
+  friendlyName: Vulnerable Container log4shell On ACR (CVE-2021-44228)
+  description: This scenario creates a new ACR  and copies an image with vulnerable log4shell (CVE-2021-44228) (https://nvd.nist.gov/vuln/detail/CVE-2021-44228). To address this issue, you should always ensure your container images are updated and use
     vulnerability scanning tools to detect and fix possible security issues swiftly.
   config:
     azure-native:location: EastUS2

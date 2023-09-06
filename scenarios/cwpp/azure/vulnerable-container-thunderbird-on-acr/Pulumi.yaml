@@ -6,9 +6,9 @@ cnappgoat-params:
   module: cwpp
   platform: azure
   id: cwpp-azure-vulnerable-container-thunderbird-on-acr
-  friendlyName: Vulnerable Container Thunderbird On ACR
+  friendlyName: Vulnerable Container Thunderbird On ACR (CVE-2022-1529)
   description: this scenario creates a new Azure Container Registry (ACR) and copies a vulnerable Thunderbird
-    image onto it. The problem lies in the strategic placement of a compromised
+    image onto it (CVE-2022-1529) (https://nvd.nist.gov/vuln/detail/CVE-2022-1529). The problem lies in the strategic placement of a compromised
     container, which could lead to potential security issues. To resolve these issues,
     it's important to maintain updated, non-vulnerable images in ACR.
   config:

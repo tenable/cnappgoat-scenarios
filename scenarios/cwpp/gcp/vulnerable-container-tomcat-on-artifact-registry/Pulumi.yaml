@@ -6,9 +6,9 @@ cnappgoat-params:
   module: cwpp
   platform: gcp
   id: cwpp-gcp-vulnerable-container-tomcat-on-artifact-registry
-  friendlyName: Vulnerable Container Tomcat On Artifact Registry
+  friendlyName: Vulnerable Container Tomcat On Artifact Registry (CVE-2020-1938)
   description: this scenario creates a new Artifcat Registry in GCP and copies a vulnerable Tomcat
-    image onto it. The problem lies in the strategic placement of a compromised
+    image onto it (CVE-2020-1938) (https://nvd.nist.gov/vuln/detail/CVE-2020-1938). The problem lies in the strategic placement of a compromised
     container, which could lead to potential security issues. To resolve these issues,
     it's important to maintain updated, non-vulnerable images.
   scenarioType: native
