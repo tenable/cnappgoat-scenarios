@@ -1,0 +1,16 @@
+name: cspm-gcp-env-secrets-function
+runtime: go
+description: This scenario deploys a Cloud Function with secrets in its environment variables that can potentially leak.
+  To mitigate this, store the secrets in a secret manager.
+cnappgoat-params:
+  description: In this scenario, a Cloud Function is deployed with secrets in its environment variables, posing a significant security 
+    risk. Directly embedding secrets can lead to unintentional leaks and potential unauthorized access to critical resources. 
+    To enhance security, it's recommended to use a secret management service. 
+    By doing so, secrets are stored encrypted in a centralized location, isolated from the application code. 
+    This approach not only safeguards the secrets but also allows for better control, audit logging, and ease of rotation. 
+    Always prioritize secure handling of sensitive information.
+  friendlyName: Secrets in Cloud Function's Environment Variables
+  id: cspm-gcp-env-secrets-function
+  module: cspm
+  scenarioType: native
+  platform: gcp
