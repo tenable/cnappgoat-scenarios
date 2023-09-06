@@ -6,9 +6,9 @@ cnappgoat-params:
   module: cwpp
   platform: aws
   id: cwpp-aws-vulnerable-container-jenkins-on-ecr
-  friendlyName: Vulnerable Container Jenkins On ECR
+  friendlyName: Vulnerable Container Jenkins On ECR (CVE-2021-21697)
   description: The scenario's operation involves deploying an Elastic Container Registry
-    (ECR) with a susceptible Jenkins container. Its problem originates
+    (ECR) with a vulnerable Jenkins container (CVE-2021-21697) (https://nvd.nist.gov/vuln/detail/CVE-2021-21697). Its problem originates
     from the potential security risks posed by the vulnerable Jenkins container, exposing
     the system to cyber threats. The remediation requires using an updated, fully
     patched Jenkins container, thereby minimizing the threat to the containerized

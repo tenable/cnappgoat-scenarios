@@ -7,9 +7,9 @@ cnappgoat-params:
   module: cwpp
   platform: aws
   id: cwpp-aws-vulnerable-ec2-thunderbird
-  friendlyName: Vulnerable EC2 Thunderbird
+  friendlyName: Vulnerable EC2 Thunderbird (CVE-2022-1529)
   description: The given scenario deploys an EC2 instance on AWS using Pulumi AWS
-    SDK, installing an insecure Thunderbird package directly from the Amazon Linux
+    SDK, installing an insecure Thunderbird package (CVE-2022-1529) (https://nvd.nist.gov/vuln/detail/CVE-2022-1529) directly from the Amazon Linux
     repository. This poses a security threat as it makes the system vulnerable. To
     fix it, ensure that the Thunderbird package is up-to-date before installation,
     or opt for a safer alternative.

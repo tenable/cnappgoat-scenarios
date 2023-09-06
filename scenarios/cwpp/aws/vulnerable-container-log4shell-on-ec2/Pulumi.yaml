@@ -5,13 +5,9 @@ description: The scenario involves deploying an EC2 instance with a Log4shell-vu
   great security concerns. To correct this, replace the vulnerability-filled Log4shell
   image.
 cnappgoat-params:
+  description: The given file deploys an Amazon EC2 instance equipped with a Docker that has a Log4Shell vulnerability (CVE-2021-44228) (https://nvd.nist.gov/vuln/detail/CVE-2021-44228), a severe JVM exploit risk. Unauthorized system access and data breaches may occur due to this vulnerability. To solve the problem, patch the Docker to eliminate the vulnerability, or refrain from using containers with known vulnerabilities.
   module: cwpp
   platform: aws
   id: cwpp-aws-vulnerable-container-log4shell-on-ec2
-  friendlyName: Vulnerable Container Log4shell On EC2
-  description: The given file deploys an Amazon EC2 instance equipped with a Docker
-    that has a Log4Shell vulnerability, a severe JVM exploit risk. Unauthorized system
-    access and data breaches may occur due to this vulnerability. To solve the problem,
-    patch the Docker to eliminate the vulnerability, or refrain from using containers
-    with known vulnerabilities.
+  friendlyName: Vulnerable Container Log4shell On EC2 (CVE-2021-44228)
   scenarioType: native

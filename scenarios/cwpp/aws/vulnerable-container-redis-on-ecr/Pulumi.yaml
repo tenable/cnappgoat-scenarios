@@ -6,9 +6,9 @@ cnappgoat-params:
   module: cwpp
   platform: aws
   id: cwpp-aws-vulnerable-container-redis-on-ecr
-  friendlyName: Vulnerable Container Redis On ECR
+  friendlyName: Vulnerable Container Redis On ECR (CVE-2022-0543)
   description: The scenario involves creating an Amazon Elastic Container
-    Registry (ECR) containing a Redis container with a vulnerability, making it susceptible
+    Registry (ECR) containing a Redis container with a vulnerability (CVE-2022-0543) (https://nvd.nist.gov/vuln/detail/CVE-2022-0543), making it susceptible
     to threats. The issue lies with the outdated, compromised Redis version. To resolve
     this, one should update Redis to a current, secure version, which would bolster
     the ECR's security and overall deployment integrity.

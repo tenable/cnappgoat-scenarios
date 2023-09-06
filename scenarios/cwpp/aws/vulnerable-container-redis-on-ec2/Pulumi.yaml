@@ -5,9 +5,9 @@ cnappgoat-params:
   module: cwpp
   platform: aws
   id: cwpp-aws-vulnerable-container-redis-on-ec2
-  friendlyName: Vulnerable Container Redis On EC2
+  friendlyName: Vulnerable Container Redis On EC2 (CVE-2022-0543)
   description: The script deploys an AWS EC2 instance with a vulnerable
-    Redis image. The issue lies in the potential security vulnerabilities
+    Redis image (CVE-2022-0543) (https://nvd.nist.gov/vuln/detail/CVE-2022-0543). The issue lies in the potential security vulnerabilities
     that could be exploited, thereby posing risks to the EC2's resources. To remediate
     this, use secure, updated, and reputable Redis images and regularly conduct vulnerability
     scanning and patching.

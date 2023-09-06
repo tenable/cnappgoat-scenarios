@@ -7,9 +7,9 @@ cnappgoat-params:
   module: cwpp
   platform: aws
   id: cwpp-aws-vulnerable-container-thunderbird-on-ecr
-  friendlyName: Vulnerable Container Thunderbird On ECR
+  friendlyName: Vulnerable Container Thunderbird On ECR (CVE-2022-1529)
   description: The scenario constitutes a script creating an Elastic Container Registry
-    (ECR) hosting a Docker container loaded with a vulnerable Thunderbird package.
+    (ECR) hosting a Docker container loaded with a vulnerable Thunderbird package (CVE-2022-1529) https://nvd.nist.gov/vuln/detail/CVE-2022-1529.
     The predicament is the risk of security violations through this vulnerable package.
     To fix this, the Thunderbird package needs to be updated to a secure version or
     substituted with a secure package before the Docker image's build and push operations.
