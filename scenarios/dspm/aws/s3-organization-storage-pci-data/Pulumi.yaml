@@ -1,0 +1,73 @@
+name: dspm-aws-s3-organization-storage-pci-data
+runtime: yaml
+description: The scenario provision organization access level S3 bucket containing PCI data.
+cnappgoat-params:
+  description: In this scenario, an Amazon Simple Storage Service (S3) bucket restricted to organization access
+   only is provisioned to store payment card industry (PCI) data. 
+   The data is maintained in two distinct files. The primary purpose of this scenario is to emulate an AWS S3 bucket containing basic sensitive information,
+    with the goal of testing a data security product's ability to detect such data. 
+    This assessment is vital in evaluating the security product's effectiveness in identifying and 
+    safeguarding sensitive information housed within cloud-based storage services
+  friendlyName: Organization access level S3 Bucket with PCI data
+  id: dspm-aws-s3-organization-storage-pci-data
+  module: dspm
+  scenarioType: native
+  platform: aws
+
+variables:
+  myOrganization:
+    fn::invoke:
+      function: aws:organizations:getOrganization
+      arguments: {}
+
+resources:
+  cnappgoatBucket:
+    type: aws:s3:BucketV2
+    properties:
+      tags:
+        Cnappgoat: true
+  cnappgoatBucketOwnershipControls:
+    type: aws:s3:BucketOwnershipControls
+    properties:
+      bucket: ${cnappgoatBucket.id}
+      rule:
+        objectOwnership: BucketOwnerPreferred
+  allowAccessFromOrgPolicy:
+    type: aws:s3:BucketPolicy
+    properties:
+      bucket: ${cnappgoatBucket.id}
+      policy: |
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "Allow",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "s3:*",
+              "Resource": [
+                "arn:aws:s3:::${cnappgoatBucket.bucket}",
+                "arn:aws:s3:::${cnappgoatBucket.bucket}/*"
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "aws:PrincipalOrgID": "${myOrganization.id}"
+                }
+              }
+            }
+          ]
+        }
+    options:
+      dependsOn:
+        - ${cnappgoatBucketOwnershipControls}
+  synced-folder:
+    type: synced-folder:index:S3BucketFolder
+    properties:
+      path: ./data
+      bucketName: ${cnappgoatBucket.id}
+      acl: private
+
+outputs:
+  bucketArn: ${cnappgoatBucket.arn}
+  bucketId: ${cnappgoatBucket.id}
+  DomainName: ${cnappgoatBucket.bucketRegionalDomainName}

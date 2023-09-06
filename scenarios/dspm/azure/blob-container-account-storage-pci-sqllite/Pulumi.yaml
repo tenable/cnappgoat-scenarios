@@ -1,0 +1,46 @@
+name: dspm-azure-blob-container-account-storage-pci-sqllite
+runtime: yaml
+description: The scenario provision Blob Container thats holds an SQLite database with PCI data 
+cnappgoat-params:
+  description: |
+    In this scenario, an Azure Storage Account with Blob Container, which is exclusively accessible by the organization, 
+    is established to store Payment Card Industry (PCI) data. Notably, the data is stored in an SQLite database blob within 
+    the container, as opposed to plain text. The primary goal of this setup is to simulate an Azure Blob Container holding 
+    sensitive information in a structured database format, in order to assess a data security product's ability to detect and 
+    safeguard such data.
+  friendlyName: Azure Blob Container with with SQLite database and PCI data
+  id: dspm-azure-blob-container-account-storage-pci-sqllite
+  config:
+    azure-native:location: EastUS2
+  module: dspm
+  scenarioType: native
+  platform: azure
+
+resources:
+  cnappgoatResourceGroup:
+    type: azure-native:resources:ResourceGroup
+  cnappgoataccount:
+    type: azure-native:storage:StorageAccount
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      kind: StorageV2
+      sku:
+        name: Standard_LRS
+  cnappgoatcontainer:
+    type: azure-native:storage:BlobContainer
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      accountName: ${cnappgoataccount.name}
+
+  synced-folder:
+    type: synced-folder:index:AzureBlobFolder
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      storageAccountName: ${cnappgoataccount.name}
+      containerName: ${cnappgoatcontainer.name}
+      path: ./data
+
+outputs:
+  cnappgoatresourcegroup: ${cnappgoatResourceGroup.name}
+  cnappgoatstorageaccount: ${cnappgoataccount.name}
+  cnappgoatcontainer: ${cnappgoatcontainer.name}

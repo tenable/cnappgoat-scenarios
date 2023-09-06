@@ -1,0 +1,124 @@
+name: dspm-aws-s3-organization-storage-sensitive-data-compression
+runtime: yaml
+description: The scenario provision organization access level S3 buckets containing compressed sensitive data
+cnappgoat-params:
+  description: In this scenario, two Amazon S3 buckets are created with access restricted to the 
+    organization only. Each bucket contains a file. The primary purpose of this scenario is to simulate 
+    AWS S3 buckets that store sensitive data. The exercise is intended to test a data security product's 
+    capabilities. Notably, the first bucket's data is compressed once, while the data in the second bucket 
+    is compressed three times.
+  friendlyName: Organization access level S3 Buckets with compressed sensitive data
+  id: dspm-aws-s3-organization-storage-sensitive-data-compression
+  module: dspm
+  scenarioType: native
+  platform: aws
+
+variables:
+  myOrganization:
+    fn::invoke:
+      function: aws:organizations:getOrganization
+      arguments: {}
+
+resources:
+
+  # first bucket
+  cnappgoatBucket:
+    type: aws:s3:BucketV2
+    properties:
+      tags:
+        Cnappgoat: true
+  cnappgoatBucketOwnershipControls:
+    type: aws:s3:BucketOwnershipControls
+    properties:
+      bucket: ${cnappgoatBucket.id}
+      rule:
+        objectOwnership: BucketOwnerPreferred
+  allowAccessFromOrgPolicy:
+    type: aws:s3:BucketPolicy
+    properties:
+      bucket: ${cnappgoatBucket.id}
+      policy: |
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "Allow",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "s3:*",
+              "Resource": [
+                "arn:aws:s3:::${cnappgoatBucket.bucket}",
+                "arn:aws:s3:::${cnappgoatBucket.bucket}/*"
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "aws:PrincipalOrgID": "${myOrganization.id}"
+                }
+              }
+            }
+          ]
+        }
+    options:
+      dependsOn:
+        - ${cnappgoatBucketOwnershipControls}
+  synced-folder:
+    type: synced-folder:index:S3BucketFolder
+    properties:
+      path: ./data/1
+      bucketName: ${cnappgoatBucket.id}
+      acl: private
+  
+  # second bucket
+  cnappgoatBucket2:
+    type: aws:s3:BucketV2
+    properties:
+      tags:
+        Cnappgoat: true
+  cnappgoatBucket2OwnershipControls:
+    type: aws:s3:BucketOwnershipControls
+    properties:
+      bucket: ${cnappgoatBucket2.id}
+      rule:
+        objectOwnership: BucketOwnerPreferred
+  allowAccessFromOrgPolicy2:
+    type: aws:s3:BucketPolicy
+    properties:
+      bucket: ${cnappgoatBucket2.id}
+      policy: |
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "Allow",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "s3:*",
+              "Resource": [
+                "arn:aws:s3:::${cnappgoatBucket2.bucket}",
+                "arn:aws:s3:::${cnappgoatBucket2.bucket}/*"
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "aws:PrincipalOrgID": "${myOrganization.id}"
+                }
+              }
+            }
+          ]
+        }
+    options:
+      dependsOn:
+        - ${cnappgoatBucket2OwnershipControls}
+  synced-folder2:
+    type: synced-folder:index:S3BucketFolder
+    properties:
+      path: ./data/2
+      bucketName: ${cnappgoatBucket2.id}
+      acl: private
+
+outputs:
+  bucketArn: ${cnappgoatBucket.arn}
+  bucketId: ${cnappgoatBucket.id}
+  bucketDomainName: ${cnappgoatBucket.bucketRegionalDomainName}
+  bucket2Arn: ${cnappgoatBucket2.arn}
+  bucket2Id: ${cnappgoatBucket2.id}
+  bucket2DomainName: ${cnappgoatBucket2.bucketRegionalDomainName}

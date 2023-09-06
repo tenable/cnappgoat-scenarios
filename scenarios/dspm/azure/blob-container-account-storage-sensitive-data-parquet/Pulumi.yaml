@@ -1,0 +1,45 @@
+name: dspm-azure-blob-container-account-storage-sensitive-data-parquet
+runtime: yaml
+description: The scenario provision an Azure Blob Container containing parquet files
+cnappgoat-params:
+  description: |
+    In this scenario, an Azure Blob Container within a Storage Account is set up, with access limited to the owner. 
+    It is used to store parquet files with sensitive data. The main objective is to evaluate a data security product's 
+    capacity to identify this type of data. This evaluation is crucial for determining the product's ability to detect 
+    and protect sensitive information in cloud storage services.
+  friendlyName: Azure Blob Container with sensitive parquet files
+  id: dspm-azure-blob-container-account-storage-sensitive-data-parquet
+  config:
+    azure-native:location: EastUS2
+  module: dspm
+  scenarioType: native
+  platform: azure
+
+resources:
+  cnappgoatResourceGroup:
+    type: azure-native:resources:ResourceGroup
+  cnappgoataccount:
+    type: azure-native:storage:StorageAccount
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      kind: StorageV2
+      sku:
+        name: Standard_LRS
+  cnappgoatcontainer:
+    type: azure-native:storage:BlobContainer
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      accountName: ${cnappgoataccount.name}
+
+  synced-folder:
+    type: synced-folder:index:AzureBlobFolder
+    properties:
+      resourceGroupName: ${cnappgoatResourceGroup.name}
+      storageAccountName: ${cnappgoataccount.name}
+      containerName: ${cnappgoatcontainer.name}
+      path: ./data/1
+
+outputs:
+  cnappgoatresourcegroup: ${cnappgoatResourceGroup.name}
+  cnappgoatstorageaccount: ${cnappgoataccount.name}
+  cnappgoatcontainer: ${cnappgoatcontainer.name}
