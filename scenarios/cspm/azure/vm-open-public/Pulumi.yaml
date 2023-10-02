@@ -1,0 +1,16 @@
+name: cspm-azure-vm-open-public
+runtime: go
+description: This script establishes an Azure VM instance running a public web server
+  on port 80. It exposes the server to any incoming traffic. To fix this issue, restrict
+  CIDR range in the NSG to known IPs, enhancing security.
+cnappgoat-params:
+  description: The provided scenario establishes a new Azure VM instance to host a public webserver on port 80.
+    It enables public access to port 80, which is a security risk. To fix this issue, revise the NSG settings, limiting access
+    to known and trusted IP addresses.
+  friendlyName: VM Open Public
+  id: cspm-azure-vm-open-public
+  module: cspm
+  scenarioType: native
+  platform: azure
+  config:
+    azure-native:location: EastUS2

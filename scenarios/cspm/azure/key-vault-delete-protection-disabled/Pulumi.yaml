@@ -1,0 +1,87 @@
+name: cspm-azure-key-vault-delete-protection-disabled
+runtime: yaml
+description: This scenario involves deploying an Azure Key Vault with delete protection disabled. To remediate this, enable delete protection.
+cnappgoat-params:
+  description: This scenario involves deploying an Azure Key Vault with delete protection disabled. 
+    Ensure that your key vault is recoverable to prevent the immediate loss of data/security functions supported by key vault objects in case of accidental deletion (for example, authentication, validation, verification, non-repudiation, etc.).
+    To make your key vault recoverable, enable the "Soft Delete" and "Do Not Purge" functions.
+  friendlyName: Azure Key Vault with Delete Protection Disabled
+  id: cspm-azure-key-vault-delete-protection-disabled
+  module: cspm
+  scenarioType: native
+  platform: azure
+  config:
+    azure-native:location: EastUS2
+
+resources:
+  cnappgoatresourcegroup:
+      type: azure-native:resources:ResourceGroup
+      properties:
+        location: ${azure-native:location}
+  cnappgoatkeyvault:
+      type: azure-native:keyvault:Vault
+      properties:
+        resourceGroupName: ${cnappgoatresourcegroup.name}
+        properties:
+          accessPolicies:
+            - objectId: 00000000-0000-0000-0000-000000000000
+              permissions:
+                certificates:
+                  - get
+                  - list
+                  - delete
+                  - create
+                  - import
+                  - update
+                  - managecontacts
+                  - getissuers
+                  - listissuers
+                  - setissuers
+                  - deleteissuers
+                  - manageissuers
+                  - recover
+                  - purge
+                keys:
+                  - encrypt
+                  - decrypt
+                  - wrapKey
+                  - unwrapKey
+                  - sign
+                  - verify
+                  - get
+                  - list
+                  - create
+                  - update
+                  - import
+                  - delete
+                  - backup
+                  - restore
+                  - recover
+                  - purge
+                secrets:
+                  - get
+                  - list
+                  - set
+                  - delete
+                  - backup
+                  - restore
+                  - recover
+                  - purge
+              tenantId: ${tenantId.tenantId}
+          enableSoftDelete: false
+          tenantId: ${tenantId.tenantId}
+
+          sku:
+            family: A
+            name: standard
+        tags:
+            Cnappgoat: true
+
+variables:
+  tenantId:
+    fn::invoke:
+      function: azure-native:authorization:getClientConfig
+
+outputs:
+  cnappgoatresourcegroup: ${cnappgoatresourcegroup.name}
+  cnappgoatkeyvault: ${cnappgoatkeyvault.name}

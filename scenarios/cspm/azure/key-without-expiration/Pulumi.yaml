@@ -1,0 +1,108 @@
+name: cspm-azure-key-without-expiration
+runtime: yaml
+description: This scenario involves deploying an Azure Key Vault with a key that does not have an expiration date. 
+  To remediate this, set an expiration date.
+
+cnappgoat-params:
+  description: This scenario involves deploying an Azure Key Vault with a key that does not have an expiration date. 
+      Ensure that your key vault keys have an expiration date to prevent the immediate loss of data/security functions supported by key vault objects in case of accidental deletion (for example, authentication, validation, verification, non-repudiation, etc.).
+      To make your key vault keys recoverable, set an expiration date.
+  friendlyName: Azure Key Vault with Key Without Expiration
+  id: cspm-azure-key-without-expiration
+  module: cspm
+  scenarioType: native
+  platform: azure
+  config:
+    azure-native:location: EastUS2
+
+resources:
+  cnappgoatresourcegroup:
+    type: azure-native:resources:ResourceGroup
+    properties:
+      location: ${azure-native:location}
+
+  cnappgoatvault:
+    type: azure-native:keyvault:Vault
+    properties:
+      resourceGroupName: ${cnappgoatresourcegroup.name}
+      properties:
+        accessPolicies:
+          - objectId: 00000000-0000-0000-0000-000000000000
+            permissions:
+              certificates:
+                - get
+                - list
+                - delete
+                - create
+                - import
+                - update
+                - managecontacts
+                - getissuers
+                - listissuers
+                - setissuers
+                - deleteissuers
+                - manageissuers
+                - recover
+                - purge
+              keys:
+                - encrypt
+                - decrypt
+                - wrapKey
+                - unwrapKey
+                - sign
+                - verify
+                - get
+                - list
+                - create
+                - update
+                - import
+                - delete
+                - backup
+                - restore
+                - recover
+                - purge
+              secrets:
+                - get
+                - list
+                - set
+                - delete
+                - backup
+                - restore
+                - recover
+                - purge
+            tenantId: ${tenantId.tenantId}
+        enableSoftDelete: false
+        tenantId: ${tenantId.tenantId}
+
+        sku:
+          family: A
+          name: standard
+      tags:
+        Cnappgoat: true
+
+  cnappgoatkey:
+    type: azure-native:keyvault:Key
+    properties:
+        resourceGroupName: ${cnappgoatresourcegroup.name}
+        vaultName: ${cnappgoatvault.name}
+        keyName: cnappgoatkey
+        properties:
+          attributes:
+            enabled: true
+          keySize: 2048
+          keyOps:
+          - Encrypt
+          - Decrypt
+          - Sign
+          - Verify
+          - WrapKey
+          - UnwrapKey
+          kty: RSA
+        tags:
+          Cnappgoat: true
+
+
+variables:
+  tenantId:
+    fn::invoke:
+      function: azure-native:authorization:getClientConfig

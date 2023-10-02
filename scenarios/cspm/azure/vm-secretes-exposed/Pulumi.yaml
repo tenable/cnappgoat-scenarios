@@ -1,0 +1,17 @@
+name: vm-secrets-expose
+runtime: go
+description: The scenario creates a new Azure VM instance with secrets in custom data.
+  Remediation involves securely managing these secrets, preferably through Azure Key Vault.
+cnappgoat-params:
+  description: The scenario creates a new Azure VM instance using Pulumi, with sensitive
+    information ("mysecretpassword1231") in the custom data. The issue is that placing
+    secrets in the custom data presents a major security risk, as this data is not encrypted
+    and can be easily accessed. To solve the problem, secrets should be stored securely
+    using Azure Key Vault, allowing the VM to retrieve them securely when needed.
+  friendlyName: VM With Secrets Embedded
+  id: cspm-azure-vm-secrets-expose
+  module: cspm
+  scenarioType: native
+  platform: azure
+  config:
+    azure-native:location: EastUS2

@@ -1,0 +1,56 @@
+name: cspm-azure-storage-account-public-network
+runtime: yaml
+description: This scenario involves deploying an Azure storage account with public network access.
+  to restrict public access, switch the Public network access setting from Enabled from all networks to 
+  enabled from selected virtual networks and IP addresses
+cnappgoat-params:
+  description: This scenario involves deploying an Azure storage account with public network access. By default, when you create a new storage account, the network is open to the internet.
+    The storage account still restricts access to blob containers, file shares, tables and queues by requiring Azure Active Directory authentication and access policy permissions.
+    For greater security, firewall rules should restrict access to specific IP addresses and virtual networks.
+
+  friendlyName: Storage Account with Public Network Access
+  id: cspm-azure-storage-account-public-network
+  module: cspm
+  scenarioType: native
+  platform: azure
+  config:
+    azure-native:location: EastUS2
+
+resources:
+  cnappgoatresourcegroup:
+    type: azure-native:resources:ResourceGroup
+    properties:
+      location: ${azure-native:location}
+  cnappgoataccount:
+    type: azure-native:storage:StorageAccount
+    properties:
+      resourceGroupName: ${cnappgoatresourcegroup.name}
+      accountName: cnappgoataccount
+      publicNetworkAccess: Enabled
+      allowBlobPublicAccess: false
+      allowSharedKeyAccess: true
+      encryption:
+        keySource: Microsoft.Storage
+        requireInfrastructureEncryption: false
+        services:
+          blob:
+            enabled: true
+            keyType: Account
+          file:
+            enabled: true
+            keyType: Account
+      keyPolicy:
+        keyExpirationPeriodInDays: 20
+      kind: Storage
+      minimumTlsVersion: TLS1_2
+      sasPolicy:
+        expirationAction: Log
+        sasExpirationPeriod: 1.15:59:59
+      sku:
+        name: Standard_GRS
+      tags:
+        Cnappgoat: true
+
+outputs:
+  cnappgoatresourcegroup: ${cnappgoatresourcegroup.name}
+  cnappgoatstorageaccount: ${cnappgoataccount.name}
