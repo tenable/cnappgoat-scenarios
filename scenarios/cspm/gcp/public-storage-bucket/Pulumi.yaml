@@ -1,0 +1,33 @@
+name: cspm-gcp-public-storage-bucket
+runtime: yaml
+description: The scenario deploys a script that creates a GCP storage bucket with public
+  read access. To remediate this, modify the bucket policy
+  to restrict public access.
+cnappgoat-params:
+  description: This scenario involves deploying a public GCP storage bucket  code creates a
+    bucket and sets it to public, making the contained secrets easily accessible, which is a significant security
+    risk.
+  friendlyName: Public Storage Bucket
+  id: cspm-gcp-public-storage-bucket
+  module: cspm
+  scenarioType: native
+  platform: gcp
+
+
+resources:
+  cnappgoatpublicbucket:
+    type: gcp:storage:Bucket
+    properties:
+      location: US
+  # Now, set an ACL to make it publicly readable
+  publicrule:
+    type: gcp:storage:BucketAccessControl
+    properties:
+      bucket: ${cnappgoatpublicbucket.name}        # Refers to the bucket defined above
+      role: READER                  # Grants read access
+      entity: allUsers              # Makes it public
+
+
+outputs:
+  bucketName: ${cnappgoatpublicbucket.name}
+  bucketUrl: gs://${cnappgoatpublicbucket.name}

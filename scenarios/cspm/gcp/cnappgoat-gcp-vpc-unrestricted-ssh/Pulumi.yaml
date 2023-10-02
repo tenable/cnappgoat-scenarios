@@ -1,0 +1,10 @@
+name: cspm-gcp-vpc-unrestricted-ssh
+runtime: go
+description: This script sets up a GCP VPC with a firewall rule that allows unrestricted SSH access from the internet.
+cnappgoat-params:
+  description: This script sets up a GCP VPC with a firewall rule that allows unrestricted SSH access from the internet.
+  friendlyName: GCP VPC With Unrestricted SSH Access
+  id: cspm-gcp-vpc-unrestricted-ssh
+  module: cspm
+  scenarioType: native
+  platform: gcp
