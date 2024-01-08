@@ -25,7 +25,6 @@ resources:
     type: azure-native:storage:StorageAccount
     properties:
       resourceGroupName: ${cnappgoatresourcegroup.name}
-      accountName: cnappgoataccount
       publicNetworkAccess: Enabled
       allowBlobPublicAccess: false
       allowSharedKeyAccess: true
