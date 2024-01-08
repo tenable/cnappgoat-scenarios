@@ -1,6 +1,8 @@
 module vm-secretes-exposed
 
-go 1.20
+go 1.21
+
+toolchain go1.21.4
 
 require (
 	github.com/pulumi/pulumi-azure-native-sdk/compute v1.104.0
