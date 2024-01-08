@@ -18,7 +18,7 @@ resources:
       type: azure-native:resources:ResourceGroup
       properties:
         location: ${azure-native:location}
-  cnappgoatkeyvault:
+  cnappgoatvault:
       type: azure-native:keyvault:Vault
       properties:
         resourceGroupName: ${cnappgoatresourcegroup.name}
@@ -84,4 +84,4 @@ variables:
 
 outputs:
   cnappgoatresourcegroup: ${cnappgoatresourcegroup.name}
-  cnappgoatkeyvault: ${cnappgoatkeyvault.name}
+  cnappgoatvault: ${cnappgoatvault.name}
