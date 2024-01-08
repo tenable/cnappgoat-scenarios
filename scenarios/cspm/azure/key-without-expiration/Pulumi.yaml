@@ -85,18 +85,17 @@ resources:
     properties:
         resourceGroupName: ${cnappgoatresourcegroup.name}
         vaultName: ${cnappgoatvault.name}
-        keyName: cnappgoatkey
         properties:
           attributes:
             enabled: true
           keySize: 2048
           keyOps:
-          - Encrypt
-          - Decrypt
-          - Sign
-          - Verify
-          - WrapKey
-          - UnwrapKey
+          - encrypt
+          - decrypt
+          - sign
+          - verify
+          - wrapKey
+          - unwrapKey
           kty: RSA
         tags:
           Cnappgoat: true
