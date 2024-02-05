@@ -11,7 +11,7 @@ cnappgoat-params:
     be stored in a secure way such as AWS Secrets Manager or using environment variables.
     This approach allows secrets to be decoupled from the code, enhancing security
     and simplifying the management of secrets.
-  friendlyName: Lamdba With Secrets As Environment Variables
+  friendlyName: Lambda With Secrets As Environment Variables
   id: cspm-aws-lambda-env-secrets
   module: cspm
   scenarioType: native
