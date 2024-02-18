@@ -1,0 +1,12 @@
+name: cspm-azure-unrestricted-rdp
+runtime: go
+description: This script sets up an Azure VNet with an NSG rule that allows unrestricted RDP access from the internet.
+cnappgoat-params:
+  description: This script sets up an Azure VNet with an NSG rule that allows unrestricted RDP access from the internet.
+  friendlyName: Azure Unrestricted RDP Access
+  id: cspm-azure-unrestricted-rdp
+  module: cspm
+  scenarioType: native
+  platform: azure
+  config:
+    azure-native:location: EastUS2

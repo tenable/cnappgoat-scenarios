@@ -1,0 +1,12 @@
+name: cspm-azure-unrestricted-ssh
+runtime: go
+description: This script sets up an Azure VNet with an NSG rule that allows unrestricted SSH access from the internet.
+cnappgoat-params:
+  description: This script sets up an Azure VNet with an NSG rule that allows unrestricted SSH access from the internet.
+  friendlyName: Azure Unrestricted SSH Access
+  id: cspm-azure-unrestricted-ssh
+  module: cspm
+  scenarioType: native
+  platform: azure
+  config:
+    azure-native:location: EastUS2
