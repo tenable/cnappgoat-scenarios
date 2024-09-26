@@ -49,7 +49,7 @@ tar xf xmrig-6.19.2-linux-static-x64.tar.gz
 		amiResult, err := aws.GetAmi(ctx, &aws.GetAmiArgs{
 			Owners:     []string{"amazon"},
 			MostRecent: &mostRecent,
-			Filters:    []aws.GetAmiFilter{{Name: "name", Values: []string{"amzn-ami-hvm-*-x86_64-ebs"}}},
+			Filters:    []aws.GetAmiFilter{{Name: "name", Values: []string{"amzn2-ami-hvm-2.0.*-x86_64-ebs"}}},
 		})
 		if err != nil {
 			return err
