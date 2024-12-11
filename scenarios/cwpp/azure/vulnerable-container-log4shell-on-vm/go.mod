@@ -7,7 +7,7 @@ require (
 	github.com/pulumi/pulumi-azure-native-sdk/network v1.104.0
 	github.com/pulumi/pulumi-azure-native-sdk/resources v1.104.0
 	github.com/pulumi/pulumi/sdk/v3 v3.76.1
-	golang.org/x/crypto v0.11.0
+	golang.org/x/crypto v0.31.0
 )
 
 require (
@@ -61,10 +61,10 @@ require (
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/zclconf/go-cty v1.12.1 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
-	golang.org/x/net v0.10.0 // indirect
-	golang.org/x/sys v0.10.0 // indirect
-	golang.org/x/term v0.10.0 // indirect
-	golang.org/x/text v0.11.0 // indirect
+	golang.org/x/net v0.21.0 // indirect
+	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/term v0.27.0 // indirect
+	golang.org/x/text v0.21.0 // indirect
 	google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1 // indirect
 	google.golang.org/grpc v1.56.1 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
